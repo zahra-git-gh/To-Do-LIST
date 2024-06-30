@@ -1,0 +1,4 @@
+.bell{
+    -webkit-mask: url(./bell.svg) no-repeat center;
+    mask: url(./bell.svg) no-repeat center;
+}
