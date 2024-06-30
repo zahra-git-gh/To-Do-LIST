@@ -1,18 +1,16 @@
 import "./App.css";
+import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
+// import { SearchInput } from "./components/Search-Input/SearchInput";
 // import { NewTaskBtn } from "./components/Add-new-task-button/NewTaskBtn";
-import { Card } from "./components/Card/Card";
+
 function App() {
   // window.document.body.style.backgroundColor = "rgb(15, 23, 42)";
   // window.document.body.style.backgroundColor='#'
+  //classnames for square cards parent
+  
   return <>
-  <section className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-  <Card isNew={true}/> 
-  <Card isNew={false}/> 
-  <Card isNew={false}/> 
-  <Card isNew={false}/> 
-  <Card isNew={false}/> 
-
-  </section>
+  <ParentTaskCards isList={true}/>
+  {/* <SearchInput /> */}
 
   </>;
 }

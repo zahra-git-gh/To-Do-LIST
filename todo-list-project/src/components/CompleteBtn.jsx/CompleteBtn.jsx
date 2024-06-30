@@ -6,7 +6,7 @@ export function CompleteBtn({ isCompleted }) {
         backgroundColor: isCompleted ? "#a1ffb1" : "#fede4b",
         color: isCompleted ? "#060a19" : "#994426",
       }}
-      className="w-6 h-6 sm:w-max sm:h-7 sm:py-1 sm:px-2 rounded-full flex items-center"
+      className="w-6 h-6 sm:w-max sm:h-7 sm:py-1 sm:px-2 rounded-full flex items-center mr-3"
     >
       <div className='hidden sm:block font-semibold'>
         {isCompleted ? "completed" : "uncompleted"}
