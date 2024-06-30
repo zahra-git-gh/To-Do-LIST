@@ -1,5 +1,4 @@
 .searchIcon{
-  background-color: #64748b;
   -webkit-mask: url(./search.svg) no-repeat center;
   mask: url(./search.svg) no-repeat center;
 }
