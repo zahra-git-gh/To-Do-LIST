@@ -5,12 +5,12 @@ export function IconsFooter({ isToday }) {
     <div className="flex gap-x-2">
       <Star isImportant={false} isToday={isToday} />
       <div
-        style={{ backgroundColor: isToday ? "white" : "gray" }}
-        className="trash w-5 h-5"
+        style={{ backgroundColor: isToday && "white"}}
+        className="trash w-5 h-5 bg-slate-600 dark:bg-slate-400 "
       ></div>
       <div
-        style={{ backgroundColor: isToday ? "white" : "gray" }}
-        className="details w-5 h-5"
+        style={{ backgroundColor: isToday && "white"}}
+        className="details w-5 h-5 bg-slate-600 dark:bg-slate-400"
       ></div>
     </div>
   );

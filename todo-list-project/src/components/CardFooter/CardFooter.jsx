@@ -4,7 +4,7 @@ import "./CardFooter.css";
 export function CardFooter({isToday}) {
   return (
     <div className=" w-full flex justify-between items-center pt-4  border-t-2 border-dashed border-slate-400 border-opacity-50">
-      <CompleteBtn isCompleted={true} />
+      <CompleteBtn isCompleted={false} />
       <div>
         <IconsFooter isToday={isToday} />
       </div>
