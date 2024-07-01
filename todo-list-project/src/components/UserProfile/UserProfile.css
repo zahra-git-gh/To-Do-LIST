@@ -1,0 +1,4 @@
+.profile{
+    -webkit-mask: url(./avatar-1.jpg) no-repeat center;
+    mask: url(./avatar-1.jpg) no-repeat center;
+}

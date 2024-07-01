@@ -15,7 +15,7 @@ export function Darkmode() {
     // darkBtn.classList.toggle('darkBtn')
   }
   return (
-    <section className="w-full">
+    <section className="w-full mt-8">
       <button
         onClick={handleClickDarkmode}
         className="w-full flex justify-between"
