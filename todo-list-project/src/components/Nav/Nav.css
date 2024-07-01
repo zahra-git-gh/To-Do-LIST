@@ -1,0 +1,4 @@
+.arrow{
+    -webkit-mask: url(./arrow.svg) no-repeat center;
+    mask: url(./arrow.svg) no-repeat center;
+}

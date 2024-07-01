@@ -1,9 +1,10 @@
 import "./App.css";
+import { Nav } from "./components/Nav/Nav";
 
 // import { Header } from "./components/Header/Header";
 
 // import { SortBySelect } from "./components/SortBySelect/SortBySelect";
-import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
+// import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
 // import { SearchInput } from "./components/Search-Input/SearchInput";
 // import { NewTaskBtn } from "./components/Add-new-task-button/NewTaskBtn";
 
@@ -14,13 +15,17 @@ function App() {
 
   return (
     <>
-    <section className="px-4">
+    {/* <section className="px-4">
 
       <ParentTaskCards isList={false}/>
-    </section>
+    </section> */}
       {/* <SortBySelect /> */}
       {/* <SearchInput /> */}
       {/* <Header /> */}
+      <div className="h-screen">
+      <Nav/>
+
+      </div>
     </>
   );
 }
