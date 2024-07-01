@@ -1,5 +1,6 @@
 import "./App.css";
-// import { Header } from "./components/Header/Header";
+import { Header } from "./components/Header/Header";
+
 // import { SortBySelect } from "./components/SortBySelect/SortBySelect";
 // import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
 // import { SearchInput } from "./components/Search-Input/SearchInput";
@@ -15,7 +16,7 @@ function App() {
       {/* <ParentTaskCards isList={true}/> */}
       {/* <SortBySelect /> */}
       {/* <SearchInput /> */}
-      {/* <Header /> */}
+      <Header />
     </>
   );
 }
