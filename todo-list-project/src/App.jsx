@@ -1,8 +1,9 @@
 import "./App.css";
-import { Header } from "./components/Header/Header";
+
+// import { Header } from "./components/Header/Header";
 
 // import { SortBySelect } from "./components/SortBySelect/SortBySelect";
-// import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
+import { ParentTaskCards } from "./components/ParentTaskCards/ParentTaskCards";
 // import { SearchInput } from "./components/Search-Input/SearchInput";
 // import { NewTaskBtn } from "./components/Add-new-task-button/NewTaskBtn";
 
@@ -13,10 +14,13 @@ function App() {
 
   return (
     <>
-      {/* <ParentTaskCards isList={true}/> */}
+    <section className="px-4">
+
+      <ParentTaskCards isList={false}/>
+    </section>
       {/* <SortBySelect /> */}
       {/* <SearchInput /> */}
-      <Header />
+      {/* <Header /> */}
     </>
   );
 }
