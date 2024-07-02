@@ -7,6 +7,7 @@ function App() {
   return <>
   {/* <UserProfile/> */}
   <EditTaskModal/>
+  <p className="text-white">todolist</p>
   </>;
 }
 
