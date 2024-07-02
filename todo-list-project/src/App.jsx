@@ -1,9 +1,10 @@
 import "./App.css";
-import { DeleteTaskModal } from "./components/Modals/DeleteTaskModal/DeleteTaskModal";
+import { CreateDirectoryModal } from "./components/Modals/CreateDirectoryModal/CreateDirectoryModal";
+// import { DeleteTaskModal } from "./components/Modals/DeleteTaskModal/DeleteTaskModal";
 
 function App() {
   return <>
-  <DeleteTaskModal/>
+  <CreateDirectoryModal/>
     </>;
 }
 
