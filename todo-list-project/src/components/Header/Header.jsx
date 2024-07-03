@@ -4,8 +4,7 @@ import { Menu } from "../Menu/Menu";
 import { SearchInput } from "../Search-Input/SearchInput";
 import "./Header.css";
 export function Header() {
-  const { openModal: secondModal, modalID } = useModal();
-  console.log(modalID);
+  const { openModal: secondModal } = useModal();
 
   return (
     <header className="w-full grid grid-cols-3 grid-flow-row-dense grid-rows-2 gap-y-3 md:flex md:justify-between items-center">

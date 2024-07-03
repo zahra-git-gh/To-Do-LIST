@@ -2,3 +2,11 @@
     -webkit-mask: url(./arrow.svg) no-repeat center;
     mask: url(./arrow.svg) no-repeat center;
 }
+.edit-category{
+    -webkit-mask: url(./edit.svg) no-repeat center;
+    mask: url(./edit.svg) no-repeat center;
+}
+.delete-category{
+    -webkit-mask: url(./trash.svg) no-repeat center;
+    mask: url(./trash.svg) no-repeat center;
+}

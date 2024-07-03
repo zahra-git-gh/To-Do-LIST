@@ -3,7 +3,7 @@ import "./Nav.css";
 import { useModal } from "../../hooks/ModalContext.jsx";
 import { useState } from "react";
 export function Nav({ modalIDD }) {
-  const { isModalOpen, closeModal, modalID } = useModal();
+  const { isModalOpen, closeModal, modalID, openModal } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
@@ -53,10 +53,28 @@ export function Nav({ modalIDD }) {
               </p>
             </div>
             <div className="pl-3">
+              <div className="flex flex-row justify-between mt-4 pl-2 pr-4">
+                <p className="text-xs sm:text-sm xl:text-base text-slate-500  cursor-pointer hover:text-red-500  dark:text-slate-400 dark:hover:text-slate-200">
+                  English
+                </p>
+                <div>
+                  <button
+                    onClick={() => openModal(7)}
+                    className="edit-category w-5 h-5 bg-slate-700 mr-2"
+                  ></button>
+                  <button
+                    onClick={() => openModal(8)}
+                    className="delete-category w-5 h-5 bg-slate-700"
+                  ></button>
+                </div>
+              </div>
               <p className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 cursor-pointer hover:text-red-500 mt-4 dark:text-slate-400 dark:hover:text-slate-200">
                 Main
               </p>
-              <button className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600">
+              <button
+                onClick={() => openModal(6)}
+                className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600"
+              >
                 + New
               </button>
             </div>
