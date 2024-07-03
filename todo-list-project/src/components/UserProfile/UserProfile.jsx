@@ -9,7 +9,7 @@ export function UserProfile({ modalIDD }) {
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
-  if (modalIDD !== modalID&&width<1280) {
+  if (modalIDD !== modalID && width < 1280) {
     return null;
   }
   if (isModalOpen || width >= 1280) {
