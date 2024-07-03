@@ -6,9 +6,9 @@ export function ParentTaskCards({ isList }) {
     <section
       className={`grid  ${
         isList
-          ? "grid-cols-1"
-          : "grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4 items-end sm:gap-4 xl:gap-6"
-      } w-full`}
+          ? "grid-cols-1 gap-y-4"
+          : "grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-3 lg:grid-cols-4 items-center sm:gap-4 xl:gap-6 "
+      } w-full mt-4 flex justify-center`}
     >
       <Card isNew={true} isList={isList} />
       <Card isNew={false} isList={isList} />

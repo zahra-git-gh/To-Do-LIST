@@ -6,17 +6,17 @@ export function Card({ isNew, isList }) {
 console.log( 'Lorem ipsum dolor sit amet consectetur'.length
 );
   return (
-    <section className={`flex flex-col items-end`}>
+    <section className={`flex flex-col items-center`}>
       <DirectoryCard />
       <section
         style={{ backgroundColor: isNew && "#333d91" }}
-        className={`${isList && "w-full"} ${isList? "h-24": "h-56"} ${isList? "flex-row": "flex-col"} ${isList&& ""} bg-slate-100 dark:bg-slate-800 rounded-lg py-4 px-5 flex justify-between hover:shadow-lg `} 
+        className={`${isList && "w-full"} ${isList? "h-24 sm:h-32": "h-56"} ${isList? "flex-row items-center": "flex-col"} ${isList&& ""} bg-slate-100 dark:bg-slate-800 rounded-lg py-4 px-5 flex justify-between hover:shadow-lg `} 
       >
         <div className="flex flex-col justify-between h-full">
           <div>
           <h1
             style={{ color: isNew && "white" }}
-            className="text-xs dark:text-white font-semibold sm:text-base"
+            className="text-xs dark:text-white  sm:text-base"
           >
             Task 1
           </h1>

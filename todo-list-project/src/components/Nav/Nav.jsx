@@ -1,9 +1,24 @@
 import { NewTaskBtn } from "../Add-new-task-button/NewTaskBtn";
 import './Nav.css'
-export function Nav() {
-  return (
-    <>
-    <div className="z-20 h-full w-60 xl:w-56 bg-slate-100 fixed dark:bg-slate-800">
+import {useModal} from '../../hooks/ModalContext.jsx'
+import { useState } from "react";
+export function Nav({modalIDD}) {
+  const {isModalOpen, closeModal, modalID}=useModal()
+  const [width, setWidth] = useState(window.innerWidth);
+  window.addEventListener("resize", () => {
+    setWidth(window.innerWidth);
+  });
+  if(modalIDD!==modalID&&width<1280){
+    return null;
+  }
+  
+  
+  if(isModalOpen || width >= 1280)
+    return <>
+    <section onClick={closeModal} className="xl:hidden z-10 fixed w-full h-full bg-slate-400/30 left-0 top-0">
+    
+    </section>
+    <div className="fixed z-20 h-full w-60 xl:w-56 bg-slate-100 left-0 top-0  dark:bg-slate-800">
       <h1 className="font-bold text-lg hidden dark:text-white xl:block text-center mt-8">TO-DO LIST</h1>
       <section className="py-8 px-4">
         <NewTaskBtn />
@@ -40,7 +55,7 @@ export function Nav() {
 
       
     </div>
-    <section className="z-10 hidden w-full h-full bg-slate-400/30"></section>
     </>
-  );
+     
+ 
 }

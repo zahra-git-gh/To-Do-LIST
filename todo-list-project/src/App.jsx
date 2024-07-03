@@ -1,10 +1,14 @@
 import "./App.css";
-import { CreateDirectoryModal } from "./components/Modals/CreateDirectoryModal/CreateDirectoryModal";
-// import { DeleteTaskModal } from "./components/Modals/DeleteTaskModal/DeleteTaskModal";
+import { ModalProvider } from "./hooks/ModalContext";
+import { HomePage } from "./pages/HomePage";
+
 
 function App() {
   return <>
-  <CreateDirectoryModal/>
+  <ModalProvider>
+  <HomePage/>
+
+  </ModalProvider>
     </>;
 }
 
