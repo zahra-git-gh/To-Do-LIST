@@ -1,10 +1,23 @@
 import "../EditTaskModal/EditTaskModal.css";
 import { useModal } from "../../../hooks/ModalContext";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
+import { addDirectory } from "../../../redux/todos.slice";
 export function CreateDirectoryModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
-  function handleSubmitCreateCategory(e) {
-    e.preventDefault();
-    //code and submit
+  const dispatch = useDispatch();
+  const { register, handleSubmit, reset, formState = { errors } } = useForm();
+  const state = useSelector((state) => state.todo.directories);
+  console.log(state);
+  function handleSubmitCreateCategory(value) {
+    // handleSubmit(value)
+    // e.preventDefault();
+    // code and submit
+    const newDirectory = { id: uuidv4(), ...value };
+    dispatch(addDirectory(newDirectory));
+    reset();
+    // console.log(value);
     closeModal();
   }
 
@@ -30,7 +43,7 @@ export function CreateDirectoryModal({ modalIDD }) {
               className="close w-6 h-6 bg-slate-600 dark:bg-slate-200"
             ></button>
           </div>
-          <form onSubmit={handleSubmitCreateCategory}>
+          <form onSubmit={handleSubmit(handleSubmitCreateCategory)}>
             <div className="flex flex-col gap-y-2 mt-5">
               <label
                 className="text-xs sm:text-sm text-slate-500 xl:text-base"
@@ -43,6 +56,7 @@ export function CreateDirectoryModal({ modalIDD }) {
                 type="text"
                 id="title"
                 placeholder="Enter a directory name"
+                {...register("name", { required: true })}
               />
             </div>
             <div className="mt-6 flex justify-start gap-x-3 items-center">
