@@ -2,7 +2,7 @@ import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
 export function DeleteTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
-
+  // console.log(id);
   if (modalID !== modalIDD) {
     return null;
   }

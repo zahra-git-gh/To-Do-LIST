@@ -5,19 +5,32 @@ import { useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import { addDirectory } from "../../../redux/todos.slice";
 export function CreateDirectoryModal({ modalIDD }) {
+  const state = useSelector((state) => state.todo.directories);
+  const isExist = (nameDir) =>
+    state.every((obj) => obj.name.toLowerCase() !== nameDir.toLowerCase());
   const { isModalOpen, closeModal, modalID } = useModal();
   const dispatch = useDispatch();
-  const { register, handleSubmit, reset, formState = { errors } } = useForm();
-  const state = useSelector((state) => state.todo.directories);
-  console.log(state);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+  });
+
+  const helperText = {
+    name: {
+      isExist: "Directory name already exists",
+      required: "Directory name is required",
+    },
+  };
+
   function handleSubmitCreateCategory(value) {
-    // handleSubmit(value)
-    // e.preventDefault();
-    // code and submit
     const newDirectory = { id: uuidv4(), ...value };
     dispatch(addDirectory(newDirectory));
     reset();
-    // console.log(value);
+
     closeModal();
   }
 
@@ -56,8 +69,13 @@ export function CreateDirectoryModal({ modalIDD }) {
                 type="text"
                 id="title"
                 placeholder="Enter a directory name"
-                {...register("name", { required: true })}
+                {...register("name", { required: true, validate: { isExist } })}
               />
+              {errors.name && (
+                <div className="text-sm text-red-500 font-thin">
+                  {helperText.name[errors.name.type]}
+                </div>
+              )}
             </div>
             <div className="mt-6 flex justify-start gap-x-3 items-center">
               <button

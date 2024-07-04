@@ -1,8 +1,15 @@
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
+import { deleteDirectory } from "../../../redux/todos.slice";
 export function DeleteDirectoryModal({ modalIDD }) {
-  const { isModalOpen, closeModal, modalID } = useModal();
-
+  const { isModalOpen, closeModal, modalID, id, setDataIDNull } = useModal();
+  const dispatch=useDispatch()
+function handleDeleteDir(){
+  dispatch(deleteDirectory(id))
+  setDataIDNull()
+  closeModal()
+}
   if (modalID !== modalIDD) {
     return null;
   }
@@ -32,7 +39,7 @@ export function DeleteDirectoryModal({ modalIDD }) {
             <button className="text-xs py-3 px-3 hover:text-red-500 sm:text-sm xl:text-base dark:text-slate-100 dark:hover:text-red-500">
               Cancle
             </button>
-            <button className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base">
+            <button onClick={handleDeleteDir} className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base">
               Confirm
             </button>
           </div>
