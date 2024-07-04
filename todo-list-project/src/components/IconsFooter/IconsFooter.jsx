@@ -1,11 +1,11 @@
 import { useModal } from "../../hooks/ModalContext";
 import { Star } from "../Star/Star";
 import "./IconsFooter.css";
-export function IconsFooter({ isToday }) {
+export function IconsFooter({ isToday, isImportant, id }) {
   const { openModal } = useModal();
   return (
     <div className="flex gap-x-2">
-      <Star isImportant={false} isToday={isToday} />
+      <Star id={id} isImportant={isImportant} isToday={isToday} />
       <button
         onClick={() => openModal(4)}
         style={{ backgroundColor: isToday && "white" }}

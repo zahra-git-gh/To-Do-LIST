@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useModal } from "../../hooks/ModalContext";
 import { BarProgress } from "../BarProgress/BarProgress";
 import { Darkmode } from "../Darkmode/Darkmode";
+import { useSelector } from "react-redux";
 
 export function UserProfile({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
@@ -9,6 +10,18 @@ export function UserProfile({ modalIDD }) {
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
+  //get all tasks for bar progress
+  const todos = useSelector((state) => state.todo.todos);
+  //function return completed task [you should pluse today tasks and complete today tasks to it]
+  function completedTodos() {
+    let completed = 0;
+    todos.map((todo) => {
+      if (todo.isCompleted) {
+        completed++;
+      }
+    });
+    return completed;
+  }
   if (modalIDD !== modalID && width < 1280) {
     return null;
   }
@@ -33,7 +46,11 @@ export function UserProfile({ modalIDD }) {
               allTasks={3}
               completedTasks={1}
             />
-            <BarProgress title={"All tasks"} allTasks={8} completedTasks={4} />
+            <BarProgress
+              title={"All tasks"}
+              allTasks={todos.length}
+              completedTasks={completedTodos()}
+            />
             <div className="mt-8">
               <p className="text-sm sm:text-sm xl:text-base text-slate-600 dark:text-slate-400">
                 Today's tasks

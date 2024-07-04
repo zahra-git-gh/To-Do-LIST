@@ -30,11 +30,15 @@ const todosSlice=createSlice({
             state.todos.push(action.payload)
         },
         updateTodo:(state, action)=>{
-            state.todos.map((todo)=>{
+            state.todos=state.todos.map((todo)=>{
                 if(todo.id===action.payload.id){
-                    todo=action.payload
+                    console.log('find todo');
+                    console.log('this is action payload', action.payload);
+                    todo={...todo,...action.payload}
+                    return todo
                 }
                 return todo
+                
             })
         },
         deleteTodo:(state, action)=>{

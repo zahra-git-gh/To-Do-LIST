@@ -171,7 +171,7 @@ export function CreateTaskModal({ modalIDD }) {
                   <option value="main">Main</option>
                   {directories.map((directory, i) => {
                     return (
-                      <option key={i} value="main">
+                      <option key={i} value={directory.name}>
                         {directory.name}
                       </option>
                     );
