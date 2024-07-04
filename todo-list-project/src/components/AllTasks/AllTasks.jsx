@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { ListStylelSelect } from "../ListStyle&Select/ListSttyle&Select";
 import { ParentTaskCards } from "../ParentTaskCards/ParentTaskCards";
 
 export function AllTasks() {
+  const isList = useSelector((state) => state.todo.isList);
   return (
     <section className="w-full">
       <div className="w-full my-5">
@@ -10,7 +12,7 @@ export function AllTasks() {
         </h1>
       </div>
       <ListStylelSelect />
-      <ParentTaskCards isList={true} />
+      <ParentTaskCards isList={isList} />
     </section>
   );
 }

@@ -2,7 +2,10 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState={
     directories:[],
-    todos:[]
+    todos:[],
+    searchTasks:'',
+    isList:false,
+    sortBy:''
 }
 
 const todosSlice=createSlice({
@@ -36,9 +39,15 @@ const todosSlice=createSlice({
         },
         deleteTodo:(state, action)=>{
             state.todos=state.todos.filter((todo)=>todo.id!==action.payload)
+        }, 
+        listStyle:(state)=>{
+            state.isList=true
+        },
+        cardStyle:(state)=>{
+            state.isList=false
         }
     }
 })
-export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo}=todosSlice.actions
+export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo, listStyle, cardStyle}=todosSlice.actions
 
 export default todosSlice.reducer
