@@ -11,6 +11,7 @@ export function DirectoryNav({ dir }) {
         <button
           onClick={() => {
             openModal(7);
+            setDataID(dir.id);
           }}
           className="edit-category w-5 h-5 bg-slate-700 mr-2"
         ></button>

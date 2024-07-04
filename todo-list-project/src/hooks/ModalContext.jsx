@@ -13,14 +13,13 @@ export function ModalProvider({ children }) {
   }
   function closeModal() {
     setModalID(null);
+    setID(null);
     setIsModalOpen(false);
   }
   function setDataID(id) {
     setID(id);
   }
-  function setDataIDNull() {
-    setID(null);
-  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -30,7 +29,6 @@ export function ModalProvider({ children }) {
         modalID,
         id,
         setDataID,
-        setDataIDNull,
       }}
     >
       {children}
