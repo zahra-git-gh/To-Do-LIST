@@ -1,7 +1,11 @@
-export function NewTaskCard({ isList }) {
+import { useModal } from "../../hooks/ModalContext";
+
+export function NewTaskCard({ isList}) {
+  const {openModal}=useModal()
   return (
     <section className="flex flex-col items-center">
       <section
+      onClick={()=>{openModal(3)}}
         className={`${isList && "w-full"} ${isList ? "h-24 sm:h-32" : "h-56"} ${
           isList ? "flex-row" : "flex-col"
         } ${

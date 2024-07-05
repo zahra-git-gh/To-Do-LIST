@@ -13,15 +13,34 @@ export function UserProfile({ modalIDD }) {
   //get all tasks for bar progress
   const todos = useSelector((state) => state.todo.todos);
   //function return completed task [you should pluse today tasks and complete today tasks to it]
-  function completedTodos() {
+  function completedTodos(array) {
     let completed = 0;
-    todos.map((todo) => {
+    array.map((todo) => {
       if (todo.isCompleted) {
         completed++;
       }
     });
     return completed;
   }
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+  const today1 = Date.parse(formattedDate);
+  //function for get today tasks
+  function todayTodos(today) {
+    const todayTodosArr = todos.filter(
+      (todo) => Date.parse(todo.deadline) === today
+    );
+    const todayTodosCompleted = todayTodosArr.filter(
+      (todo) => todo.isCompleted === true
+    );
+    return { todayTodosArr, todayTodosCompleted };
+  }
+
   if (modalIDD !== modalID && width < 1280) {
     return null;
   }
@@ -41,29 +60,47 @@ export function UserProfile({ modalIDD }) {
               <div className="profile w-10 h-10 rounded-full bg-[url('./avatar-1.jpg')] bg-center bg-cover ml-4"></div>
             </div>
             <Darkmode />
-            <BarProgress
-              title={"Tasks today"}
-              allTasks={3}
-              completedTasks={1}
-            />
-            <BarProgress
-              title={"All tasks"}
-              allTasks={todos.length}
-              completedTasks={completedTodos()}
-            />
-            <div className="mt-8">
-              <p className="text-sm sm:text-sm xl:text-base text-slate-600 dark:text-slate-400">
-                Today's tasks
-              </p>
-              <ul className="ml-4">
-                <li className="dark:text-slate-100 cursor-pointer text-xs sm:text-sm xl:text-base text-slate-400  mt-3">
-                  study
-                </li>
-                <li className="dark:text-slate-100 cursor-pointer text-xs sm:text-sm xl:text-base text-slate-400  mt-3">
-                  test
-                </li>
-              </ul>
-            </div>
+            {todayTodos(today1).todayTodosArr.length > 0 && (
+              <BarProgress
+                title={"Tasks today"}
+                allTasks={todayTodos(today1).todayTodosArr.length}
+                completedTasks={todayTodos(today1).todayTodosCompleted.length}
+              />
+            )}
+            {todos.length > 0 && (
+              <BarProgress
+                title={"All tasks"}
+                allTasks={todos.length}
+                completedTasks={completedTodos(todos)}
+              />
+            )}
+
+            {todayTodos(today1).todayTodosArr.length > 0 ? (
+              <div className="mt-8">
+                <p className="text-sm sm:text-sm xl:text-base text-slate-600 dark:text-slate-400">
+                  Today's tasks
+                </p>
+                <ul className="ml-4">
+                  {todayTodos(today1).todayTodosArr.map((todo, i) => {
+                    return (
+                      <li
+                        key={i}
+                        className="dark:text-slate-100 cursor-pointer text-xs sm:text-sm xl:text-base text-slate-400  mt-3"
+                      >
+                        {todo.title}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <div className="mt-8 border-t-2 border-slate-200 py-3">
+                <p className="text-slate-500 dark:text-slate-100">
+                  No task today
+                </p>
+              </div>
+            )}
+
             <div className=" mt-auto ">
               <button className="text-sm text-slate-600 hover:text-red-500 w-full py-4 text-left dark:text-slate-400">
                 Delete all data

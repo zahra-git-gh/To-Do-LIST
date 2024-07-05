@@ -58,6 +58,8 @@ export function CreateTaskModal({ modalIDD }) {
   function submitCreateTaskForm(value) {
     const task = { ...value, id: uuidv4(), isCompleted, isImportant };
     dispatch(addTodo(task));
+    setIsCompleted(false);
+    setIsImportant(false);
     reset();
     closeModal();
   }
