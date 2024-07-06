@@ -16,9 +16,10 @@ export function Card({
   //change deadline to */*/* structure
   function changeDeadline(date) {
     const array = date.split("-").reverse().join("/");
-    console.log(array);
     return array;
   }
+  console.log('this is iscompleted in card', {id, isCompleted, title, isImportant});
+
   // changeDeadline("2024-07-04")
   return (
     <section className={`flex flex-col items-center`}>

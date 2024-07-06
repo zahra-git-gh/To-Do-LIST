@@ -5,6 +5,7 @@ import { ParentTaskCards } from "../ParentTaskCards/ParentTaskCards";
 export function AllTasks() {
   const isList = useSelector((state) => state.todo.isList);
   const todos = useSelector((state) => state.todo.todos);
+  
   return (
     <section className="w-full">
       <div className="w-full my-5">

@@ -32,8 +32,6 @@ const todosSlice=createSlice({
         updateTodo:(state, action)=>{
             state.todos=state.todos.map((todo)=>{
                 if(todo.id===action.payload.id){
-                    console.log('find todo');
-                    console.log('this is action payload', action.payload);
                     todo={...todo,...action.payload}
                     return todo
                 }
@@ -49,9 +47,15 @@ const todosSlice=createSlice({
         },
         cardStyle:(state)=>{
             state.isList=false
+        },
+        addSortBy:(state, action)=>{
+            state.sortBy=action.payload
+        },
+        addsearchTasks:(state, action)=>{
+            state.searchTasks=action.payload
         }
     }
 })
-export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo, listStyle, cardStyle}=todosSlice.actions
+export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo, listStyle, cardStyle, addSortBy, addsearchTasks}=todosSlice.actions
 
 export default todosSlice.reducer

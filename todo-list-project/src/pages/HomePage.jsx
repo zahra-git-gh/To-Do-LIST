@@ -14,7 +14,7 @@ import { UserProfile } from "../components/UserProfile/UserProfile";
 export function HomePage() {
   return (
     <section
-      className="w-full h-full px-3 pt-5 pb-8 md:px-7
+      className="w-full h-screen px-3 pt-5  md:px-7
     "
     >
       <Nav modalIDD={1} />
@@ -25,7 +25,7 @@ export function HomePage() {
       <CreateDirectoryModal modalIDD={6} />
       <EditDirectoryModal modalIDD={7} />
       <DeleteDirectoryModal modalIDD={8} />
-      <div className="xl:w-8/12 xl:m-auto xl:pr-4">
+      <div className="xl:w-8/12 xl:m-auto xl:pr-4 flex flex-col justify-between h-full">
         <Header />
 
         <AllTasks />
@@ -33,7 +33,7 @@ export function HomePage() {
           <NewTaskBtn />
         </div>
 
-        <footer className="text-center text-slate-800 text-xs w-full mt-4">
+        <footer className="text-center pb-8 text-slate-800 text-xs w-full mt-4">
           TODO-LIST
         </footer>
       </div>

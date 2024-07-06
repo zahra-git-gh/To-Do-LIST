@@ -4,11 +4,9 @@ import { NewTaskBtn } from "../Add-new-task-button/NewTaskBtn";
 import { Menu } from "../Menu/Menu";
 import { SearchInput } from "../Search-Input/SearchInput";
 import "./Header.css";
-import { useState } from "react";
 import { UncompletedTaskToday } from "../UncompletedTaskToday/UncompletedTaskToday";
 export function Header() {
   const { openModal: secondModal } = useModal();
-  const [isShow, setIsShow] = useState(false);
   const todos = useSelector((state) => state.todo.todos);
   const today = new Date();
   const year = today.getFullYear();
@@ -44,7 +42,9 @@ export function Header() {
           TO-DO LIST
         </h1>
         <p className="text-xs sm:text-sm xl:text-base text-slate-700 dark:text-slate-100">
-          2024, Jun 30
+          {`${year}, ${today.toLocaleString("default", { month: "long" })} ${day
+            .toString()
+            .padStart(2, "0")}`}
         </p>
       </div>
       <div className=" flex flex-row items-center gap-4 place-self-end justify-end flex-1">
@@ -56,10 +56,10 @@ export function Header() {
             onClick={() => secondModal(9)}
             className="cursor-pointer bell w-5 h-5 bg-blue-700 md:w-6 md:h-6"
           ></div>
-        <UncompletedTaskToday
-          data={todayTodos(today1).todayTodosUncompleted}
-          modalIDD={9}
-        />
+          <UncompletedTaskToday
+            data={todayTodos(today1).todayTodosUncompleted}
+            modalIDD={9}
+          />
         </div>
         <div className="hidden sm:block">
           <NewTaskBtn />

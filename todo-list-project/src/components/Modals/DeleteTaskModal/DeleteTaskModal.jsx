@@ -1,8 +1,14 @@
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
+import { deleteTodo } from "../../../redux/todos.slice";
 export function DeleteTaskModal({ modalIDD }) {
-  const { isModalOpen, closeModal, modalID } = useModal();
-  // console.log(id);
+  const { isModalOpen, closeModal, modalID, id } = useModal();
+  const dispatch = useDispatch();
+  function handleDelete() {
+    dispatch(deleteTodo(id));
+    closeModal();
+  }
   if (modalID !== modalIDD) {
     return null;
   }
@@ -36,7 +42,7 @@ export function DeleteTaskModal({ modalIDD }) {
               Cancle
             </button>
             <button
-              onClick={closeModal}
+              onClick={handleDelete}
               className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base"
             >
               Confirm

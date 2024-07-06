@@ -36,7 +36,6 @@ export function CreateTaskModal({ modalIDD }) {
       .padStart(2, "0")}`;
     const today1 = Date.parse(formattedDate);
     const deadline = Date.parse(date);
-    console.log(deadline >= today1);
     return deadline >= today1;
   }
   //helper text for show errors after inputs
@@ -58,10 +57,10 @@ export function CreateTaskModal({ modalIDD }) {
   function submitCreateTaskForm(value) {
     const task = { ...value, id: uuidv4(), isCompleted, isImportant };
     dispatch(addTodo(task));
-    setIsCompleted(false);
-    setIsImportant(false);
     reset();
     closeModal();
+    setIsCompleted(false);
+    setIsImportant(false);
   }
   //get data of directories for show in select option
   const directories = useSelector((state) => state.todo.directories);
@@ -182,6 +181,7 @@ export function CreateTaskModal({ modalIDD }) {
               </div>
               <div className="flex items-center gap-x-2 mt-5">
                 <CheckBox
+                  defaultChecked={isImportant}
                   onClick={(e) => {
                     setIsImportant(e);
                   }}
@@ -192,6 +192,7 @@ export function CreateTaskModal({ modalIDD }) {
               </div>
               <div className="flex items-center gap-x-2 mt-4">
                 <CheckBox
+                  defaultChecked={isCompleted}
                   onClick={(e) => {
                     setIsCompleted(e);
                   }}
