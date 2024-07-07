@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 export function ParentTaskCards({ isList }) {
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
-  console.log(todos);
+
   return (
     <section
       className={`grid  ${

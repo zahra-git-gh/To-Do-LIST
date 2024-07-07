@@ -55,7 +55,13 @@ export function CreateTaskModal({ modalIDD }) {
   };
   //handle submit function form
   function submitCreateTaskForm(value) {
-    const task = { ...value, id: uuidv4(), isCompleted, isImportant };
+    const task = {
+      ...value,
+      directory: JSON.parse(value.directory),
+      id: uuidv4(),
+      isCompleted,
+      isImportant,
+    };
     dispatch(addTodo(task));
     reset();
     closeModal();
@@ -169,10 +175,13 @@ export function CreateTaskModal({ modalIDD }) {
                   id="directory"
                   {...register("directory")}
                 >
-                  <option value="main">Main</option>
+                  <option value={'{"name":"Main", "id":"123"}'}>Main</option>
                   {directories.map((directory, i) => {
                     return (
-                      <option key={i} value={directory.name}>
+                      <option
+                        key={i}
+                        value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
+                      >
                         {directory.name}
                       </option>
                     );

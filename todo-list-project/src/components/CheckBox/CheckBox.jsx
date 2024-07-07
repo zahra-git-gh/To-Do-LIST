@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function CheckBox({ onClick, defaultChecked }) {
   const [isChecked, setIsChecked] = useState(defaultChecked);
-  onClick(isChecked);
+  useEffect(() => {
+    onClick(isChecked);
+  }, [onClick, isChecked]);
   function handleClick() {
     setIsChecked((c) => !c);
   }

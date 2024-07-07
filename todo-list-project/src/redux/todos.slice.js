@@ -16,15 +16,22 @@ const todosSlice=createSlice({
             state.directories.push(action.payload)
         },
         updateDirectory:(state, action)=>{
-            state.directories.map((directory)=>{
-                if(directory.id===action.payload.id){
-                    directory.name=action.payload.name
-                }
-                return directory
-            })
+                state.directories=state.directories.map((directory)=>{
+                    if(directory.id===action.payload.id){
+                        directory.name=action.payload.name
+                    }
+                    return directory
+                }),
+                state.todos=state.todos.map((todo)=>{
+                    if(todo.directory.id===action.payload.id){
+                        todo.directory.name=action.payload.name
+                    }
+                    return todo
+                })
         },
         deleteDirectory:(state, action)=>{
             state.directories=state.directories.filter((directory)=>directory.id!==action.payload)
+            state.todos=state.todos.filter((todo)=>todo.directory.id!==action.payload)
         },
         addTodo:(state, action)=>{
             state.todos.push(action.payload)

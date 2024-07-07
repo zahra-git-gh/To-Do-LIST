@@ -18,12 +18,11 @@ export function Card({
     const array = date.split("-").reverse().join("/");
     return array;
   }
-  console.log('this is iscompleted in card', {id, isCompleted, title, isImportant});
 
   // changeDeadline("2024-07-04")
   return (
     <section className={`flex flex-col items-center`}>
-      <DirectoryCard dirName={directory} />
+      <DirectoryCard dirName={directory.name} />
       <section
         style={{ backgroundColor: isNew && "#333d91" }}
         className={`${isList && "w-full"} ${isList ? "h-24 sm:h-32" : "h-56"} ${

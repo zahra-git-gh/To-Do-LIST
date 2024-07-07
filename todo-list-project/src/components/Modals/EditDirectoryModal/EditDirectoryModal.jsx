@@ -15,7 +15,8 @@ export function EditDirectoryModal({ modalIDD }) {
     }
   }, [directory]);
 
-  function submitEdit() {
+  function submitEdit(e) {
+    e.preventDefault();
     dispatch(updateDirectory(data));
     setData(null);
     closeModal();

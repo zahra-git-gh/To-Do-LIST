@@ -8,7 +8,8 @@ export function EditTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const todos = useSelector((state) => state.todo.todos);
   const todo = todos.filter((todo) => todo.id === id)[0];
-
+  const directories = useSelector((state) => state.todo.directories);
+  console.log(directories);
   const [data, setData] = useState();
   const [isImportant, setIsImportant] = useState();
   const [isCompleted, setIsCompleted] = useState();
@@ -17,7 +18,17 @@ export function EditTaskModal({ modalIDD }) {
   function handleSubmitEdit(e) {
     e.preventDefault();
     //some code and submit
-    dispatch(updateTodo({ ...data, isImportant, isCompleted }));
+    dispatch(
+      updateTodo({
+        ...data,
+        directory:
+          typeof data.directory === "string"
+            ? JSON.parse(data.directory)
+            : data.directory,
+        isImportant,
+        isCompleted,
+      })
+    );
     closeModal();
   }
 
@@ -26,7 +37,6 @@ export function EditTaskModal({ modalIDD }) {
       setData(todo);
     }
   }, [isModalOpen, todo]);
-
   if (modalID !== modalIDD) {
     return null;
   }
@@ -121,11 +131,22 @@ export function EditTaskModal({ modalIDD }) {
                   onChange={(e) => {
                     setData({ ...data, directory: e.target.value });
                   }}
-                  value={data && data.directory}
+                  // defaultValue={data && data?.directory.name}
                 >
-                  <option className="" value="main">
-                    Main
-                  </option>
+                  <option value={'{"name":"Main", "id":"123"}'}>Main</option>
+                  {directories.map((directory, i) => {
+                    return (
+                      <option
+                        key={i}
+                        selected={
+                          data?.directory?.name == directory.name && "selected"
+                        }
+                        value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
+                      >
+                        {directory.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="flex items-center gap-x-2 mt-5">
