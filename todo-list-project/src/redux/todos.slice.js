@@ -60,9 +60,16 @@ const todosSlice=createSlice({
         },
         addsearchTasks:(state, action)=>{
             state.searchTasks=action.payload
+        }, 
+        deleteAllData:(state)=>{
+            state.directories=initialState.directories
+            state.isList=initialState.isList
+            state.searchTasks=initialState.searchTasks
+            state.sortBy=initialState.sortBy
+            state.todos=initialState.todos
         }
     }
 })
-export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo, listStyle, cardStyle, addSortBy, addsearchTasks}=todosSlice.actions
+export const {addDirectory, updateDirectory, deleteDirectory, addTodo, updateTodo, deleteTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData}=todosSlice.actions
 
 export default todosSlice.reducer

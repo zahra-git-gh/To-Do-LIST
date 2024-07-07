@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useModal } from "../../hooks/ModalContext";
 import { BarProgress } from "../BarProgress/BarProgress";
 import { Darkmode } from "../Darkmode/Darkmode";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAllData } from "../../redux/todos.slice";
 
 export function UserProfile({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
+  const dispatch = useDispatch();
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
@@ -21,6 +23,10 @@ export function UserProfile({ modalIDD }) {
       }
     });
     return completed;
+  }
+  //delete all data from redux
+  function deleteAllDataHandler() {
+    dispatch(deleteAllData());
   }
   const today = new Date();
   const year = today.getFullYear();
@@ -102,7 +108,10 @@ export function UserProfile({ modalIDD }) {
             )}
 
             <div className=" mt-auto ">
-              <button className="text-sm text-slate-600 hover:text-red-500 w-full py-4 text-left dark:text-slate-400">
+              <button
+                onClick={deleteAllDataHandler}
+                className="text-sm text-slate-600 hover:text-red-500 w-full py-4 text-left dark:text-slate-400"
+              >
                 Delete all data
               </button>
             </div>
