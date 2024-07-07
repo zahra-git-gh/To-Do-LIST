@@ -13,7 +13,7 @@ const todosSlice=createSlice({
     initialState,
     reducers:{
         addDirectory:(state, action)=>{
-            state.directories.push(action.payload)
+            state.directories.unshift(action.payload)
         },
         updateDirectory:(state, action)=>{
                 state.directories=state.directories.map((directory)=>{
@@ -34,7 +34,7 @@ const todosSlice=createSlice({
             state.todos=state.todos.filter((todo)=>todo.directory.id!==action.payload)
         },
         addTodo:(state, action)=>{
-            state.todos.push(action.payload)
+            state.todos.unshift(action.payload)
         },
         updateTodo:(state, action)=>{
             state.todos=state.todos.map((todo)=>{

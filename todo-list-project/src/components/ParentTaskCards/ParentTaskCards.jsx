@@ -6,8 +6,37 @@ export function ParentTaskCards({ isList }) {
   const todos = useSelector((state) => state.todo.todos);
   //filter cards with value search input
   const searchValue = useSelector((state) => state.todo.searchTasks);
-  console.log(searchValue);
   const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
+  const sortBySelect = useSelector((state) => state.todo.sortBy);
+
+  function sortArray(sortBy) {
+    if (sortBy === "Uncompleted first") {
+      const todos = [...filterTodos].sort((a, b) => {
+        return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? 1 : -1;
+      });
+      return todos;
+    } else if (sortBy === "Completed first") {
+      const todos = [...filterTodos].sort((a, b) => {
+        return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? -1 : 1;
+      });
+      return todos;
+    } else if (sortBy === "later first") {
+      const todos = [...filterTodos].sort((a, b) => {
+        return new Date(b.deadline) - new Date(a.deadline);
+      });
+      return todos;
+    } else if (sortBy === "Earlier first") {
+      const todos = [...filterTodos].sort((a, b) => {
+        return new Date(a.deadline) - new Date(b.deadline);
+      });
+      return todos;
+    } else if (sortBy === "Order added") {
+      return [...filterTodos];
+    } else {
+      return [...filterTodos];
+    }
+  }
+  const filterTodosSelect = sortArray(sortBySelect);
   return (
     <section
       className={`grid  ${
@@ -16,7 +45,7 @@ export function ParentTaskCards({ isList }) {
           : "grid-cols-2 gap-2 md:grid-cols-3 xl:grid-cols-3 lg:grid-cols-4 items-center sm:gap-4 xl:gap-6 "
       } w-full mt-4 flex justify-center`}
     >
-      {filterTodos.map((todo, i) => {
+      {filterTodosSelect.map((todo, i) => {
         return (
           <Card
             key={todo.id}

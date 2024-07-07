@@ -79,7 +79,10 @@ export function CreateTaskModal({ modalIDD }) {
     return (
       <>
         <div
-          onClick={closeModal}
+          onClick={() => {
+            reset();
+            closeModal();
+          }}
           className="w-full h-full  bg-slate-600/30 z-10 dark:z-10 fixed top-0 right-0 flex justify-center py-4"
         >
           <section
@@ -94,6 +97,7 @@ export function CreateTaskModal({ modalIDD }) {
               </h1>
               <button
                 onClick={(e) => {
+                  reset();
                   closeModal();
                   e.stopPropagation();
                 }}
