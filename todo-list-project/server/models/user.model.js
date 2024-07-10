@@ -21,5 +21,5 @@ const userSchema= new Schema({
     }
 })
 
-const userModel= new model('User', userSchema)
+const userModel= model('User', userSchema)
 module.exports={userModel}
