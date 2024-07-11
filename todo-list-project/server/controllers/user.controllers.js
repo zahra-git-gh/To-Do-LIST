@@ -35,7 +35,7 @@ const registerNewUser=async (req, res)=>{
         const verifiedEmail= await VerifyEmail.create({userId:user.id, token})
         //verification link
        
-        const verifyUrl=`${process.env.BASE_URL}/verify/${user.id}/${verifiedEmail.token}`
+        const verifyUrl=`${process.env.BASE_URL}/user/verify/${user.id}/${verifiedEmail.token}`
         const message=`click on the link below \n ${verifyUrl}`
         //send veification code to user
         await emailSend('Verify Email', message, {email:user.email, name:user.name})
@@ -50,7 +50,9 @@ const verifyUser=async (req, res)=>{
     const {userId, token}=req.params
     try {
         const user=await userModel.findById(userId);
-        const userVerify=await VerifyEmail.find({userId});
+        const userVerify=await VerifyEmail.findOne({userId});
+        console.log(user);
+        console.log(userVerify);
         if(!user || !userVerify){
             return res.status(400).json({ error: "Invalid Link" });
         };
@@ -69,7 +71,7 @@ const verifyUser=async (req, res)=>{
 const loginUser=async (req, res)=>{
     const {email, password}=req.body;
     try {
-        const user=await userModel.find({email});
+        const user=await userModel.findOne({email});
         if(!user){
          return res.status(401).json({ error: "Authentication failed. This email does not exist" });
             
@@ -85,7 +87,7 @@ const loginUser=async (req, res)=>{
                 error: "Email or password incorrect",
               });
         };
-        const token=jwt.sign(user.id, process.env.SECRET_KEY, {
+        const token=jwt.sign({userId:user._id}, process.env.SECRET_KEY, {
             expiresIn:'30m'
         })
         res.status(201).json({token})
@@ -93,6 +95,9 @@ const loginUser=async (req, res)=>{
         res.status(500).json({msg:error})
     }
 }
+
+
+
 module.exports={
     getAllUsers,
     getOneUser,

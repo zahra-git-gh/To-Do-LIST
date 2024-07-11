@@ -7,12 +7,12 @@ const mailersend=new MailerSend({
 const sender=new Sender(process.env.MAILER_SEND_EMIAL,process.env.MAILER_SEND_NAME);
 
 const emailSend=async (subject, text, recipient)=>{
-    const recipient=[new Recipient(recipient.email, recipient.name)]
+    const recipients=[new Recipient(recipient.email, recipient.name)]
     try {
         const emailParams=new EmailParams()
-        .setFrom(sender.email)
-        .setFromName(sender.name)
-        .setRecipients(recipient)
+        .setFrom(sender)
+        .setTo(recipients)
+        .setReplyTo(sender)
         .setSubject(subject)
         .setText(text);
         await mailersend.email.send(emailParams)

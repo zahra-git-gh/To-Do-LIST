@@ -42,9 +42,13 @@ router.get('/verify/:userId/:token', verifyUser);
 
 /**
  * @URL : /user/
- * @Method : GET
+ * @Method : POST
  * @Status : PUBLIC
  * @Description : login user
  */
 
 router.post('/login', loginUser)
+
+
+
+module.exports={router}

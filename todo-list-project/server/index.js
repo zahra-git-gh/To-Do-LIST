@@ -7,6 +7,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 // const {userModal}=require('./models/user.model.js');
+app.use('/user', require('./routes/user.routes.js').router)
+app.use('/todo', require('./routes/todo.routes.js').router)
 async function start(){
     try {
         await connectDB()
