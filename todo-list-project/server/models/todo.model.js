@@ -25,7 +25,9 @@ const todoSchema= new Schema({
     },
     directory:{
         type:Schema.Types.ObjectId,
-        ref:'Directory'
+        ref:'Directory',
+        required:[true, 'directory is required'],
+        
     }
 })
 

@@ -7,7 +7,7 @@ const verifyToken= (req, res, next)=>{
         }
         const secret_key=process.env.SECRET_KEY
         const decode_token=jwt.verify(token, secret_key)
-        if(req.method==='POST' && req.originalUrl == "/category"){
+        if(req.method==='POST' && req.originalUrl == "/directory"){
             req.body.userId=decode_token.userId;
         }else if(req.method==='POST' && req.originalUrl == "/todo"){
             req.body.userId=decode_token.userId;

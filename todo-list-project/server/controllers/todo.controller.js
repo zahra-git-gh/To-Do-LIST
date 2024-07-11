@@ -26,9 +26,13 @@ const createTodo=async (req, res)=>{
 
 const deleteTodo=async (req, res)=>{
     try {
-        const {id}=req.params;
+        const {id:_id}=req.params;
         const userId=req.userId
-        const todo=await todoModel.findOneAndDelete({_id:id, userId})
+        const todo=await todoModel.findOne({_id, userId})
+        if(!todo){
+            return res.status(400).json({msg:'you can not delete this todo'})
+        }
+        const deleteTodo=await todoModel.findOneAndDelete({_id, userId})
         res.status(200).json({msg:'todo deleted!!', todo})
     } catch (error) {
         res.status(500).json({msg:error})
@@ -40,8 +44,12 @@ const updateTodo=async (req, res)=>{
     try {
         const userId=req.userId;
         const newData=req.body;
-        const {id}=req.params;
-        const updatedTodo=await todoModel.findOneAndUpdate({_id:id, userId}, {...newData})
+        const {id:_id}=req.params;
+        const todo=await todoModel.findOne({_id, userId})
+        if(!todo){
+            return res.status(400).json({msg:'you can not update this todo'})
+        }
+        const updatedTodo=await todoModel.findOneAndUpdate({_id, userId}, {...newData})
         res.status(201).json({msg:'todo update :>'})
     } catch (error) {
         res.status(500).json({msg:error})
