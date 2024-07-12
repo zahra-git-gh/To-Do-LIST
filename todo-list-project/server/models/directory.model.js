@@ -8,8 +8,7 @@ const directorySchema=new Schema({
     },
     name:{
         required:true,
-        type:String,
-        default:()=>'Main'
+        type:String
     }
 })
 

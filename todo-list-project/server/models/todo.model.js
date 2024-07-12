@@ -8,7 +8,7 @@ const todoSchema= new Schema({
     },
     title:{
         required:true,
-        type:String
+        type:String,
     },
     description:{
         type:String
@@ -18,10 +18,14 @@ const todoSchema= new Schema({
         type:Date
     },
     isImportant:{
-        type:Boolean
+        require:true,
+        type:Boolean,
+        default:()=>false
     },
     isCompleted:{
-        type:Boolean
+        require:true,
+        type:Boolean,
+        default:()=>false
     },
     directory:{
         type:Schema.Types.ObjectId,

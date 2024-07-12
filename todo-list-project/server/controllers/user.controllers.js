@@ -4,10 +4,12 @@ const crypto = require("crypto");
 const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken');
 const {emailSend}=require('../utils/sendEmail');
-const getAllUsers=async (req, res)=>{
+const { directoryModel } = require('../models/directory.model');
+const getUser=async (req, res)=>{
     try {
-        const users=await userModel.find({})
-        res.status(200).json(users)
+        const userId=req.userId;
+        const user=await userModel.find({_id:userId})
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json({msg:error})
     }
@@ -62,6 +64,7 @@ const verifyUser=async (req, res)=>{
         user.verified=true;
         await user.save();
         await userVerify.deleteOne();
+        const defaultDirectory=await directoryModel.create({userId, name:'Main'})
         res.status(200).send('your email verified successfully ✨')
     } catch (error) {
         res.status(500).json({msg:error})
@@ -96,12 +99,22 @@ const loginUser=async (req, res)=>{
     }
 }
 
-
+const updateUser=async (req, res)=>{
+    try {
+        const userId=req.userId 
+        const newData=req.body;
+        const updated=await userModel.findByIdAndUpdate(userId, newData);
+        res.status(201).json({msg:"user updated", data:{...updated._doc, ...newData}})
+    } catch (error) {
+        res.status(500).json({msg:error})
+    }
+}
 
 module.exports={
-    getAllUsers,
+    getUser,
     getOneUser,
     registerNewUser,
     verifyUser,
-    loginUser
+    loginUser,
+    updateUser
 }

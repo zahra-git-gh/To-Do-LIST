@@ -5,7 +5,9 @@ const {
     getAllTodosOfOneUser,
     createTodo,
     deleteTodo,
-    updateTodo
+    updateTodo,
+    getAllTodosOfOneDirectory,
+    getOneTodo
 }=require('../controllers/todo.controller');
 /**
  * @URL : /todo
@@ -15,6 +17,22 @@ const {
  */
 
 router.get('/',verifyToken, getAllTodosOfOneUser)
+/**
+ * @URL : /todo/directory/id
+ * @Method : GET
+ * @Status : PRIVET
+ * @Description : get all todos of a directory
+ */
+router.get('/directory/:id', verifyToken, getAllTodosOfOneDirectory);
+
+/**
+ * @URL : /todo/id
+ * @Method : GET
+ * @Status : PRIVET
+ * @Description : get a todo
+ */
+
+router.get('/:id', verifyToken, getOneTodo)
 
 /**
  * @URL : /todo

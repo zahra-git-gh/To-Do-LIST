@@ -13,7 +13,8 @@ const userSchema= new Schema({
     },
     password:{
         type:String,
-        required:[true, 'Password is required']
+        required:[true, 'Password is required'],
+        match:[/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/]
     },
     verified:{
         type:Boolean, 
