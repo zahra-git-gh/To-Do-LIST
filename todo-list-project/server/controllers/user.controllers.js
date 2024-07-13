@@ -15,16 +15,6 @@ const getUser=async (req, res)=>{
     }
 }
 
-const getOneUser=async (req, res)=>{
-    const {id}=req.params
-    try {
-        const user=await userModel.findById(id);
-        res.status(200).json(user)
-    } catch (error) {
-        res.status(500).json({msg:error})
-    }
-}
-
 const registerNewUser=async (req, res)=>{
     const {password, ...restUserData}=req.body
     try {
@@ -112,7 +102,6 @@ const updateUser=async (req, res)=>{
 
 module.exports={
     getUser,
-    getOneUser,
     registerNewUser,
     verifyUser,
     loginUser,

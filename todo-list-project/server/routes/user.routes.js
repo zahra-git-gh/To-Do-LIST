@@ -2,7 +2,6 @@ const {Router}=require('express');
 const router=Router()
 const {
     getUser,
-    getOneUser,
     registerNewUser,
     verifyUser,
     loginUser,
@@ -16,14 +15,6 @@ const { verifyToken } = require('../middlewares/authMiddlware');
  * @Description : get all users data
  */
 router.get('/', verifyToken ,getUser);
-
-/**
- * @URL : /user/id
- * @Method : GET
- * @Status : PUBLIC
- * @Description : get a user data
- */
-router.get('/:id', getOneUser);
 
 /**
  * @URL : /user/
