@@ -38,7 +38,7 @@ const registerNewUser=async (req, res)=>{
         //send response after 
         res.status(201).json({message: "User registered successfully. Please Verify Email"})
     } catch (error) {
-        res.status(500).json({msg:error})
+        res.status(500).json({message:error.message})
     }
 }
 
@@ -70,26 +70,26 @@ const loginUser=async (req, res)=>{
     try {
         const user=await userModel.findOne({email});
         if(!user){
-         return res.status(401).json({ error: "Authentication failed. This email does not exist" });
+         return res.status(401).json({ message: "Authentication failed. This email does not exist" });
             
         };
         if(!user.verified){
             return res.status(401).json({
-                error: "Authentication failed. This email has not been verified",
+                message: "Authentication failed. This email has not been verified",
               });
         };
         const isPasswordMatched=await bcrypt.compare(password, user.password)
         if(!isPasswordMatched){
             return res.status(401).json({
-                error: "Email or password incorrect",
+                message: "Email or password incorrect",
               });
         };
         const token=jwt.sign({userId:user._id}, process.env.SECRET_KEY, {
-            expiresIn:'30m'
+            // expiresIn:'30m'
         })
         res.status(201).json({token})
     } catch (error) {
-        res.status(500).json({msg:error})
+        res.status(500).json({message:error.message})
     }
 }
 

@@ -5,8 +5,10 @@ import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 export function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState();
-  const [isHide, setIsHide] = useState();
+  const [alertMessage, setAlertMessage] = useState();
+  const [isHide, setIsHide] = useState(true);
+  const registerMessage =
+    "Thanks for signing up. Your account has been created. Please check your email.";
   //react hook form for handle our form create task
   const {
     handleSubmit,
@@ -37,11 +39,11 @@ export function SignUpForm() {
       setIsHide(true);
       setIsError(false);
       setIsLoading(true);
-      setErrorMessage("");
+      setAlertMessage("");
       await registerUser(value);
+      setAlertMessage(registerMessage);
     } catch (error) {
-      console.log(error.message.includes(1100));
-      setErrorMessage(
+      setAlertMessage(
         error.message.includes(1100)
           ? "Email already exists. please try another one."
           : error.message
@@ -58,7 +60,7 @@ export function SignUpForm() {
     <section className="w-full relative h-full flex flex-col justify-start items-center">
       <AlertSignUp
         isSuccess={!isError}
-        errorMessage={errorMessage}
+        alertMessage={alertMessage}
         isHide={isHide}
       />
       <div className="w-full h-full flex justify-center py-4 items-center">

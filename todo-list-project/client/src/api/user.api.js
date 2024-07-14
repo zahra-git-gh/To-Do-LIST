@@ -5,8 +5,6 @@ import {
 } from '../utils/fetcher';
 const BASE_URL=import.meta.env.VITE_API_URL;
 export const registerUser=async (data)=>{
-    console.log(data);
-    console.log(BASE_URL);
     try {
         const newUser=await postData(`${BASE_URL}/user`, data)
         return newUser;

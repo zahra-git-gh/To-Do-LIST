@@ -26,8 +26,8 @@ export const postData=async (url, data, token=null)=>{
         return response.data
     } catch (error) {
         // console.log(error.message);
-        // console.log(error.response.data.msg.code);
-        throw new Error(error.response?.data.msg.code || error.message)
+        console.log(error.response.data);
+        throw new Error(error.response.data.message)
     }
 };
 export const updateData=async (url, data, token)=>{
