@@ -3,7 +3,7 @@ export function SignUpHeader() {
   const year = today.getFullYear();
   const day = today.getDate();
   return (
-    <header className="w-full flex justify-center fixed top-0">
+    <header className="w-full flex justify-center absolute top-0">
       <div>
         <h1 className="font-bold text-sm dark:text-white  text-slate-600 ">
           TO-DO LIST

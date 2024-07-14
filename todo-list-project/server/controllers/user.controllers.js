@@ -17,10 +17,14 @@ const getUser=async (req, res)=>{
 
 const registerNewUser=async (req, res)=>{
     const {password, ...restUserData}=req.body
+    console.log(req.body, 'in api');
     try {
+        console.log(password, 'in api');
         const hashPassword= await bcrypt.hash(password, 10);
+        console.log(hashPassword);
         //sign up user in database
         const user=await userModel.create({...restUserData, password:hashPassword});
+        console.log(user);
         //create verified token in database
           //create token for verify email
         const token=crypto.randomBytes(32).toString('hex')

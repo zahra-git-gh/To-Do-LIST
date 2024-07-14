@@ -18,13 +18,16 @@ export const postData=async (url, data, token=null)=>{
     try {
         const response=await axios.post(url, data, token &&{
             headers:{
-                token
+                "token":token,
+                "Accept":"application/json, text/plain, /",
+                "Content-Type": "multipart/form-data"
             }
         })
         return response.data
     } catch (error) {
-        console.log(error);
-        throw new Error(error.response.data.error || error.response.data.msg)
+        // console.log(error.message);
+        // console.log(error.response.data.msg.code);
+        throw new Error(error.response?.data.msg.code || error.message)
     }
 };
 export const updateData=async (url, data, token)=>{

@@ -9,12 +9,11 @@ const userSchema= new Schema({
         type:String,
         required:[true, 'Email is required'],
         unique: true,
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
+        match: [/^[a-zA-Z0-9_.±]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/]
     },
     password:{
         type:String,
-        required:[true, 'Password is required'],
-        match:[/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/]
+        required:[true, 'Password is required']
     },
     verified:{
         type:Boolean, 

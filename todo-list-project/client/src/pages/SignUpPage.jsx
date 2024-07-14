@@ -6,7 +6,7 @@ export function SignUpPage() {
     <section className="w-full h-screen xl:overflow-y-hidden">
       <section className=" lg:flex lg:flex-row w-full h-full items-center">
         <section className="w-full flex flex-col items-center justify-center gap-y-20 h-full bg-blue-900 dark:bg-slate-800">
-          <div className="dark w-full fixed top-0">
+          <div className="dark w-full absolute top-0">
             <SignUpHeader />
           </div>
           <div className="">
