@@ -72,7 +72,7 @@ const updateTodo=async (req, res)=>{
         if(!updatedTodo){
             return res.status(400).json({msg:'you can not update this todo'})
         }
-        res.status(201).json({msg:'todo update :>', data:{...updateTodo, ...newData}})
+        res.status(201).json({msg:'todo update :>', data:{...updatedTodo._doc, ...newData}})
     } catch (error) {
         res.status(500).json({msg:error})
         

@@ -3,30 +3,35 @@ import { useModal } from "../../../hooks/ModalContext";
 import { CheckBox } from "../../CheckBox/CheckBox";
 import "./EditTaskModal.css";
 import { useEffect, useState } from "react";
-import { updateTodo } from "../../../redux/todos.slice";
+import { editTodo } from "../../../redux/todos.slice";
 export function EditTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const todos = useSelector((state) => state.todo.todos);
-  const todo = todos.filter((todo) => todo.id === id)[0];
-  const directories = useSelector((state) => state.todo.directories);
-  console.log(directories);
+  const todo = todos.filter((todo) => todo._id === id)[0];
+  // const directories = useSelector((state) => state.todo.directories);
+  // console.log(directories);
   const [data, setData] = useState();
   const [isImportant, setIsImportant] = useState();
   const [isCompleted, setIsCompleted] = useState();
   const dispatch = useDispatch();
-
+  const token = useSelector((state) => state.user.token);
+  console.log("this is ID of todo", id);
   function handleSubmitEdit(e) {
     e.preventDefault();
     //some code and submit
     dispatch(
-      updateTodo({
-        ...data,
-        directory:
-          typeof data.directory === "string"
-            ? JSON.parse(data.directory)
-            : data.directory,
-        isImportant,
-        isCompleted,
+      editTodo({
+        data: {
+          ...data,
+          // directory:
+          //   typeof data.directory === "string"
+          //     ? JSON.parse(data.directory)
+          //     : data.directory,
+          isImportant,
+          isCompleted,
+        },
+        id,
+        token,
       })
     );
     closeModal();
@@ -125,7 +130,7 @@ export function EditTaskModal({ modalIDD }) {
                 >
                   Select a directory
                 </label>
-                <select
+                {/* <select
                   className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs text-slate-600 sm:text-sm xl:text-base"
                   id="directory"
                   onChange={(e) => {
@@ -147,7 +152,7 @@ export function EditTaskModal({ modalIDD }) {
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
               </div>
               <div className="flex items-center gap-x-2 mt-5">
                 <CheckBox

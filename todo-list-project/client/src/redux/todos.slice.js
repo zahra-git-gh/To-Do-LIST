@@ -24,7 +24,6 @@ export const fetchTodos=createAsyncThunk('todos/fetchTodos', async(token)=>{
 export const createTodo=createAsyncThunk('todos/postTodo', async(obj)=>{
     const {data, token}=obj
     try {
-        // console.log(data, token);
         console.log(data);
         console.log('in dispatch');
         const todo=await postTodo(data, token);
@@ -37,7 +36,8 @@ export const createTodo=createAsyncThunk('todos/postTodo', async(obj)=>{
     }
 })
 
-export const editTodo=createAsyncThunk('todos/updateTodo', async(id, data, token)=>{
+export const editTodo=createAsyncThunk('todos/updateTodo', async(obj)=>{
+    const {id, data, token}=obj
     try {
         const editedTodo=await updateTodo(id, data, token);
         return editedTodo.data
@@ -147,7 +147,7 @@ const todosSlice=createSlice({
         })
         .addCase(editTodo.fulfilled, (state, action)=>{
             state.loading=false
-            state.todos.map((todo)=>{
+            state.todos=state.todos.map((todo)=>{
                 if(todo._id===action.payload._id){
                     todo={...todo,...action.payload}
                     return todo
