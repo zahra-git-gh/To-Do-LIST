@@ -4,10 +4,12 @@ import {
     updateData,
     deleteData
 } from '../utils/fetcher';
-const BASE_URL=import.meta.env.BASE_URL;
+const BASE_URL=import.meta.env.VITE_API_URL;
 
 export const getAllTodos=async (token)=>{
     try {
+        console.log(BASE_URL+'/todo');
+        console.log(token);
         const todos=await getData(`${BASE_URL}/todo`, token)
         return todos
     } catch (error) {
@@ -17,6 +19,8 @@ export const getAllTodos=async (token)=>{
 
 export const postTodo=async (data, token)=>{
     try {
+        console.log(data, token);
+        console.log(token);
         const todo=await postData(`${BASE_URL}/todo`,data, token)
         return todo
     } catch (error) {

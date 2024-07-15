@@ -1,11 +1,18 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ListStylelSelect } from "../ListStyle&Select/ListSttyle&Select";
 import { ParentTaskCards } from "../ParentTaskCards/ParentTaskCards";
+import { useEffect } from "react";
+import { fetchTodos } from "../../redux/todos.slice";
 
 export function AllTasks() {
   const isList = useSelector((state) => state.todo.isList);
+  const token = useSelector((state) => state.user.token);
   const todos = useSelector((state) => state.todo.todos);
-  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTodos(token));
+  }, [dispatch, token]);
+  console.log(todos);
   return (
     <section className="w-full">
       <div className="w-full my-5">

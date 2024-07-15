@@ -3,15 +3,28 @@ import { useModal } from "../../../hooks/ModalContext";
 import { CheckBox } from "../../CheckBox/CheckBox";
 import "../EditTaskModal/EditTaskModal.css";
 import { useForm } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import { addTodo } from "../../../redux/todos.slice";
+import { createTodo } from "../../../redux/todos.slice";
 export function CreateTaskModal({ modalIDD }) {
+  //!show directories in create task and choose one
+  // {directories.map((directory, i) => {
+  //   return (
+  //     <option
+  //       key={i}
+  //       value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
+  //     >
+  //       {directory.name}
+  //     </option>
+  //   );
+  // })}
+  //!
   const { isModalOpen, closeModal, modalID } = useModal();
   //state for getting data of checkboxs
   const [isImportant, setIsImportant] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+  console.log(token);
   //react hook form for handle our form create task
   const {
     handleSubmit,
@@ -54,22 +67,25 @@ export function CreateTaskModal({ modalIDD }) {
     },
   };
   //handle submit function form
-  function submitCreateTaskForm(value) {
+  async function submitCreateTaskForm(value) {
     const task = {
       ...value,
-      directory: JSON.parse(value.directory),
-      id: uuidv4(),
       isCompleted,
       isImportant,
     };
-    dispatch(addTodo(task));
+    try {
+      console.log(task);
+      await dispatch(await createTodo({ token, data: task }));
+    } catch (error) {
+      console.log(error);
+    }
     reset();
     closeModal();
     setIsCompleted(false);
     setIsImportant(false);
   }
-  //get data of directories for show in select option
-  const directories = useSelector((state) => state.todo.directories);
+  //! get data of directories for show in select option
+  // const directories = useSelector((state) => state.todo.directories);
 
   //check for open and close modal
   if (modalID !== modalIDD) {
@@ -174,23 +190,13 @@ export function CreateTaskModal({ modalIDD }) {
                 >
                   Select a directory
                 </label>
-                <select
+                {/* <select
                   className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs text-slate-600 sm:text-sm xl:text-base"
                   id="directory"
                   {...register("directory")}
                 >
-                  <option value={'{"name":"Main", "id":"123"}'}>Main</option>
-                  {directories.map((directory, i) => {
-                    return (
-                      <option
-                        key={i}
-                        value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
-                      >
-                        {directory.name}
-                      </option>
-                    );
-                  })}
-                </select>
+                  
+                </select> */}
               </div>
               <div className="flex items-center gap-x-2 mt-5">
                 <CheckBox

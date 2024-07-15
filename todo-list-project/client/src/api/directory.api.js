@@ -4,7 +4,7 @@ import {
     updateData,
     deleteData
 } from '../utils/fetcher';
-const BASE_URL=import.meta.env.BASE_URL;
+const BASE_URL=import.meta.env.VITE_API_URL;
 
 export const getAllDirectory=async (token)=>{
     try {
