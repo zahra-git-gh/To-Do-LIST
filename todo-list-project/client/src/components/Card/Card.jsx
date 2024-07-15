@@ -8,7 +8,7 @@ export function Card({
   deadline,
   description,
   directory,
-  id,
+  _id,
   isCompleted,
   isImportant,
   title,
@@ -50,7 +50,7 @@ export function Card({
         </div>
         <div>
           <CardFooter
-            id={id}
+            id={_id}
             isCompleted={isCompleted}
             isImportant={isImportant}
             isToday={isNew}

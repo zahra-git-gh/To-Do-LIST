@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { getAllTodos, postTodo, deleteTodo} from '../api/todo.api';
+import { getAllTodos, postTodo, deleteTodo, updateTodo} from '../api/todo.api';
 
 
 const initialState={
@@ -37,22 +37,21 @@ export const createTodo=createAsyncThunk('todos/postTodo', async(obj)=>{
     }
 })
 
-// export const editTodo=createAsyncThunk('todos/updateTodo', async(id, data, token)=>{
-//     try {
-//         const editedTodo=await updateTodo(id, data, token);
-//         return editedTodo.data
-//     } catch (error) {
-//         console.log(error);
-//         throw new Error(error)
-//     }
-// })
-
-export const removeTodo=createAsyncThunk('todos/deleteTodo', async (id, token)=>{
+export const editTodo=createAsyncThunk('todos/updateTodo', async(id, data, token)=>{
     try {
-        const deletedTodo=await deleteTodo(id, token)
-        if(deletedTodo.statusCode===200){
-            return id
-        }
+        const editedTodo=await updateTodo(id, data, token);
+        return editedTodo.data
+    } catch (error) {
+        console.log(error);
+        throw new Error(error)
+    }
+})
+
+export const removeTodo=createAsyncThunk('todos/deleteTodo', async (obj)=>{
+    const {id, token}=obj;
+    try {
+        await deleteTodo(id, token)
+        return id
     } catch (error) {
         console.log(error);
         throw new Error(error)
@@ -143,34 +142,34 @@ const todosSlice=createSlice({
         .addCase(createTodo.rejected, (state)=>{
             state.loading=false
         })
-        // .addCase(editTodo.pending, (state)=>{
-        //     state.loading=true
-        // })
-        // .addCase(editTodo.fulfilled, (state, action)=>{
-        //     state.loading=false
-        //     state.todos.map((todo)=>{
-        //         if(todo._id===action.payload._id){
-        //             todo={...todo,...action.payload}
-        //             return todo
-        //         }
-        //         return todo
-        //     })
-        // })
-        // .addCase(editTodo.rejected, (state)=>{
-        //     state.loading=false
-        // })
+        .addCase(editTodo.pending, (state)=>{
+            state.loading=true
+        })
+        .addCase(editTodo.fulfilled, (state, action)=>{
+            state.loading=false
+            state.todos.map((todo)=>{
+                if(todo._id===action.payload._id){
+                    todo={...todo,...action.payload}
+                    return todo
+                }
+                return todo
+            })
+        })
+        .addCase(editTodo.rejected, (state)=>{
+            state.loading=false
+        })
         .addCase(removeTodo.pending, (state)=>{
             state.loading=true
         })
         .addCase(removeTodo.fulfilled, (state, action)=>{
             state.loading=false
-            state.todos=state.todos.filter((todo)=>todo.id!==action.payload)
+            state.todos=state.todos.filter((todo)=>todo._id!==action.payload)
         })
         .addCase(removeTodo.rejected, (state)=>{
             state.loading=false
         })
     }
 })
-export const {addDirectory, updateDirectory, deleteDirectory, addTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData, updateTodo}=todosSlice.actions
+export const {addDirectory, updateDirectory, deleteDirectory, addTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData}=todosSlice.actions
 
 export default todosSlice.reducer
