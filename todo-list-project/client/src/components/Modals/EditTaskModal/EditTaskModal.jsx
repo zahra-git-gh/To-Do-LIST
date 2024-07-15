@@ -4,6 +4,7 @@ import { CheckBox } from "../../CheckBox/CheckBox";
 import "./EditTaskModal.css";
 import { useEffect, useState } from "react";
 import { editTodo } from "../../../redux/todos.slice";
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
 export function EditTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const todos = useSelector((state) => state.todo.todos);
@@ -14,20 +15,16 @@ export function EditTaskModal({ modalIDD }) {
   const [isCompleted, setIsCompleted] = useState();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  function handleSubmitEdit(e) {
+  const isLoading = useSelector((state) => state.todo.loading);
+  async function handleSubmitEdit(e) {
     e.preventDefault();
-
-    dispatch(
-      editTodo({
-        data: {
-          ...data,
-          isImportant,
-          isCompleted,
-        },
-        id,
-        token,
-      })
-    );
+    try {
+      await dispatch(
+        editTodo({ data: { ...data, isImportant, isCompleted }, id, token })
+      );
+    } catch (error) {
+      console.log(error);
+    }
     closeModal();
   }
   function changeDeadline(date) {
@@ -180,9 +177,11 @@ export function EditTaskModal({ modalIDD }) {
               </div>
               <button
                 type="submit"
-                className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base"
+                className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base flex justify-center items-center"
+                disabled={isLoading}
               >
-                Edit task
+                <LoadingSpinner isLoading={isLoading} />
+                {!isLoading && "Edit task"}
               </button>
             </form>
           </section>

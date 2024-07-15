@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { registerUser } from "../../api/user.api";
 import { useState } from "react";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 export function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -144,11 +145,7 @@ export function SignUpForm() {
               className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base flex justify-center items-center"
               disabled={isLoading}
             >
-              <div
-                className={`${
-                  !isLoading && "hidden"
-                } w-8 h-8 md:w-10 md:h-10 spinner bg-center bg-cover bg-[url('./spinner-2.png')] animate-spin`}
-              ></div>
+              <LoadingSpinner isLoading={isLoading}/>
               {!isLoading && "Submit"}
             </button>
           </form>

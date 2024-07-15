@@ -3,6 +3,7 @@ import { useModal } from "../../../hooks/ModalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { createDirectory } from "../../../redux/todos.slice";
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
 export function CreateDirectoryModal({ modalIDD }) {
   const state = useSelector((state) => state.todo.directories);
   const token = useSelector((state) => state.user.token);
@@ -10,6 +11,7 @@ export function CreateDirectoryModal({ modalIDD }) {
     state.every((obj) => obj.name.toLowerCase() !== nameDir.toLowerCase());
   const { isModalOpen, closeModal, modalID } = useModal();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.todo.loading);
   const {
     register,
     handleSubmit,
@@ -80,9 +82,10 @@ export function CreateDirectoryModal({ modalIDD }) {
             <div className="mt-6 flex justify-start gap-x-3 items-center">
               <button
                 type="submit"
-                className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base"
+                className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base flex justify-center items-center"
               >
-                Create
+                <LoadingSpinner isLoading={isLoading} />
+                {!isLoading && "Create"}
               </button>
             </div>
           </form>

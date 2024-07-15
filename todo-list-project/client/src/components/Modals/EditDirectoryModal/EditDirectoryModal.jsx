@@ -3,6 +3,7 @@ import "../EditTaskModal/EditTaskModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editDirectory } from "../../../redux/todos.slice";
 import { useEffect, useState } from "react";
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
 export function EditDirectoryModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const directories = useSelector((state) => state.todo.directories);
@@ -10,6 +11,7 @@ export function EditDirectoryModal({ modalIDD }) {
   const [data, setData] = useState();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const isLoading = useSelector((state) => state.todo.loading);
   useEffect(() => {
     if (directory) {
       setData(directory);
@@ -66,9 +68,10 @@ export function EditDirectoryModal({ modalIDD }) {
             <div className="mt-6 flex justify-start gap-x-3 items-center">
               <button
                 type="submit"
-                className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base"
+                className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base flex justify-center items-center"
               >
-                Edit
+                <LoadingSpinner isLoading={isLoading} />
+                {!isLoading && "Edit"}
               </button>
             </div>
           </form>

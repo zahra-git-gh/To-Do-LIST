@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
 import { removeTodo } from "../../../redux/todos.slice";
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
 
 export function DeleteTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
+  const isLoading = useSelector((state) => state.todo.loading);
   async function handleDelete() {
     try {
       await dispatch(removeTodo({ id, token }));
@@ -49,9 +51,11 @@ export function DeleteTaskModal({ modalIDD }) {
             </button>
             <button
               onClick={handleDelete}
-              className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base"
+              className="text-xs bg-[#333d91] hover:bg-[#5163ae] text-slate-100 rounded-lg py-3 px-6 sm:text-sm xl:text-base flex justify-center items-center"
+              disabled={isLoading}
             >
-              Confirm
+              <LoadingSpinner isLoading={isLoading} />
+              {!isLoading && "Confirm"}
             </button>
           </div>
         </section>

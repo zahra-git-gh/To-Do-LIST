@@ -5,6 +5,7 @@ import "../EditTaskModal/EditTaskModal.css";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { createTodo } from "../../../redux/todos.slice";
+import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
 export function CreateTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
   //state for getting data of checkboxs
@@ -12,7 +13,7 @@ export function CreateTaskModal({ modalIDD }) {
   const [isCompleted, setIsCompleted] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-
+  const isLoading = useSelector((state) => state.todo.loading);
   //react hook form for handle our form create task
   const {
     handleSubmit,
@@ -184,9 +185,11 @@ export function CreateTaskModal({ modalIDD }) {
                 >
                   {directories.map((directory, i) => {
                     return (
-                      <option key={i} value={directory._id} selected={
-                        directory.name==='Main' && "selected"
-                      }>
+                      <option
+                        key={i}
+                        value={directory._id}
+                        selected={directory.name === "Main" && "selected"}
+                      >
                         {directory.name}
                       </option>
                     );
@@ -217,9 +220,11 @@ export function CreateTaskModal({ modalIDD }) {
               </div>
               <button
                 type="submit"
-                className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base"
+                className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base flex justify-center items-center"
+                disabled={isLoading}
               >
-                Add a task
+                <LoadingSpinner isLoading={isLoading} />
+                {!isLoading && "Add a task"}
               </button>
             </form>
           </section>
