@@ -10,8 +10,11 @@ export function AllTasks() {
   const todos = useSelector((state) => state.todo.todos);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchTodos(token));
-  }, [dispatch, token]);
+    const start = async () => {
+      dispatch(fetchTodos(token));
+    };
+    start();
+  }, []);
   return (
     <section className="w-full">
       <div className="w-full my-5">

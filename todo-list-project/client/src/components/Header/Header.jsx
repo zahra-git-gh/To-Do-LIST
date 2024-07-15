@@ -50,7 +50,10 @@ export function Header() {
       <div className=" flex flex-row items-center gap-4 place-self-end justify-end flex-1">
         <div className="relative w-max">
           {todayTodos(today1).todayTodosUncompleted.length > 0 && (
-            <div className="w-2 h-2 bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
+            <>
+            <div className="w-2 h-2  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
+            <div className="w-2 h-2 animate-ping  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
+            </>
           )}
           <div
             onClick={() => secondModal(9)}

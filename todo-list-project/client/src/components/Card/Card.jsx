@@ -14,10 +14,11 @@ export function Card({
   isImportant,
   title,
 }) {
-  //change deadline to */*/* structure
+  //change deadline to yy/mm/dd structure
   function changeDeadline(date) {
-    const array = date.split("-").reverse().join("/");
-    return array;
+    const newDate=new Date(date)
+    let formattedDate = newDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' });
+    return formattedDate
   }
   const taskDir = useSelector((state) => state.todo.directories).filter(
     (dir) => dir._id === directory

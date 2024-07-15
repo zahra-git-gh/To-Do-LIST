@@ -15,7 +15,7 @@ const initialState={
 export const fetchTodos=createAsyncThunk('todos/fetchTodos', async(token)=>{
     try {
         const todos=await getAllTodos(token)
-        return todos.todos
+        return todos.todos.reverse()
     } catch (error) {
         console.log(error);
         throw new Error(error)
@@ -62,7 +62,7 @@ export const removeTodo=createAsyncThunk('todos/deleteTodo', async (obj)=>{
 export const fetchDirectory=createAsyncThunk('todos/fetchDirectory', async (token)=>{
     try {
         const directories=await getAllDirectory(token)
-        return directories.directories;
+        return directories.directories.reverse();
     } catch (error) {
         console.log(error);
     }
@@ -90,7 +90,7 @@ export const editDirectory=createAsyncThunk('todos/updateDirectory', async (obj)
     }
 })
 
-export const removeDirectory=await createAsyncThunk('todos/deleteDirectory', async(obj)=>{
+export const removeDirectory=createAsyncThunk('todos/deleteDirectory', async(obj)=>{
     const {id, token}=obj
     try {
         await deleteDirectory(id, token);
@@ -179,7 +179,7 @@ const todosSlice=createSlice({
         })
         .addCase(createTodo.fulfilled, (state, action)=>{
             state.loading=false
-            state.todos.push(action.payload)
+            state.todos.unshift(action.payload)
         })
         .addCase(createTodo.rejected, (state)=>{
             state.loading=false
@@ -225,7 +225,7 @@ const todosSlice=createSlice({
         })
         .addCase(createDirectory.fulfilled, (state, action)=>{
             state.loading=false
-            state.directories.push(action.payload)
+            state.directories.unshift(action.payload)
         })
         .addCase(createDirectory.rejected, (state)=>{
             state.loading=false

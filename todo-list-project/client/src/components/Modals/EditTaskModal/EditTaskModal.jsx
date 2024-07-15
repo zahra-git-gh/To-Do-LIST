@@ -30,10 +30,20 @@ export function EditTaskModal({ modalIDD }) {
     );
     closeModal();
   }
+  function changeDeadline(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
   useEffect(() => {
     if (isModalOpen) {
-      setData(todo);
+      setData({ ...todo, deadline: changeDeadline(todo?.deadline) });
     }
   }, [isModalOpen, todo]);
   if (modalID !== modalIDD) {
@@ -136,7 +146,7 @@ export function EditTaskModal({ modalIDD }) {
                       <option
                         key={i}
                         selected={
-                          data?.directory?.name == directory.name && "selected"
+                          data?.directory == directory._id && "selected"
                         }
                         value={directory._id}
                       >

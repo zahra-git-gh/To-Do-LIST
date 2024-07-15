@@ -16,8 +16,11 @@ export function Nav({ modalIDD }) {
   const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchDirectory(token));
-  }, [token, dispatch]);
+    const start = async () => {
+      dispatch(fetchDirectory(token));
+    };
+    start();
+  }, []);
 
   if (modalIDD !== modalID && width < 1280) {
     return null;
