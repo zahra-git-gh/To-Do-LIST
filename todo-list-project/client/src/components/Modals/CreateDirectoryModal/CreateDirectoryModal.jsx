@@ -2,10 +2,10 @@ import "../EditTaskModal/EditTaskModal.css";
 import { useModal } from "../../../hooks/ModalContext";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
-import { addDirectory } from "../../../redux/todos.slice";
+import { createDirectory } from "../../../redux/todos.slice";
 export function CreateDirectoryModal({ modalIDD }) {
   const state = useSelector((state) => state.todo.directories);
+  const token = useSelector((state) => state.user.token);
   const isExist = (nameDir) =>
     state.every((obj) => obj.name.toLowerCase() !== nameDir.toLowerCase());
   const { isModalOpen, closeModal, modalID } = useModal();
@@ -27,8 +27,8 @@ export function CreateDirectoryModal({ modalIDD }) {
   };
 
   function handleSubmitCreateCategory(value) {
-    const newDirectory = { id: uuidv4(), ...value };
-    dispatch(addDirectory(newDirectory));
+    const newDirectory = { ...value };
+    dispatch(createDirectory({ data: newDirectory, token }));
     reset();
 
     closeModal();

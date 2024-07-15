@@ -6,25 +6,13 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { createTodo } from "../../../redux/todos.slice";
 export function CreateTaskModal({ modalIDD }) {
-  //!show directories in create task and choose one
-  // {directories.map((directory, i) => {
-  //   return (
-  //     <option
-  //       key={i}
-  //       value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
-  //     >
-  //       {directory.name}
-  //     </option>
-  //   );
-  // })}
-  //!
   const { isModalOpen, closeModal, modalID } = useModal();
   //state for getting data of checkboxs
   const [isImportant, setIsImportant] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  console.log(token);
+
   //react hook form for handle our form create task
   const {
     handleSubmit,
@@ -84,8 +72,7 @@ export function CreateTaskModal({ modalIDD }) {
     setIsCompleted(false);
     setIsImportant(false);
   }
-  //! get data of directories for show in select option
-  // const directories = useSelector((state) => state.todo.directories);
+  const directories = useSelector((state) => state.todo.directories);
 
   //check for open and close modal
   if (modalID !== modalIDD) {
@@ -190,13 +177,19 @@ export function CreateTaskModal({ modalIDD }) {
                 >
                   Select a directory
                 </label>
-                {/* <select
+                <select
                   className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs text-slate-600 sm:text-sm xl:text-base"
                   id="directory"
                   {...register("directory")}
                 >
-                  
-                </select> */}
+                  {directories.map((directory, i) => {
+                    return (
+                      <option key={i} value={directory._id}>
+                        {directory.name}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
               <div className="flex items-center gap-x-2 mt-5">
                 <CheckBox

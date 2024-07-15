@@ -1,12 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
-import { deleteDirectory } from "../../../redux/todos.slice";
+import { removeDirectory } from "../../../redux/todos.slice";
 export function DeleteDirectoryModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
   function handleDeleteDir() {
-    dispatch(deleteDirectory(id));
+    dispatch(removeDirectory({ id, token }));
     closeModal();
   }
   if (modalID !== modalIDD) {

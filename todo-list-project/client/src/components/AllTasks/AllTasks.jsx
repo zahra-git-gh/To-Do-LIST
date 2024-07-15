@@ -12,7 +12,6 @@ export function AllTasks() {
   useEffect(() => {
     dispatch(fetchTodos(token));
   }, [dispatch, token]);
-  console.log(todos);
   return (
     <section className="w-full">
       <div className="w-full my-5">

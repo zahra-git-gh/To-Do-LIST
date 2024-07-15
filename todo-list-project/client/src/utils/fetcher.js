@@ -4,7 +4,7 @@ export const getData=async (url, token)=>{
     try {
         const response=await axios.get(url, {
             headers:{
-                token
+                token:token
             }
         })
         return response.data

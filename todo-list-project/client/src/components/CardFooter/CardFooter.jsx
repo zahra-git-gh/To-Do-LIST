@@ -2,7 +2,6 @@ import { CompleteBtn } from "../CompleteBtn.jsx/CompleteBtn";
 import { IconsFooter } from "../IconsFooter/IconsFooter";
 import "./CardFooter.css";
 export function CardFooter({ isToday, isList, isImportant, isCompleted, id }) {
-  console.log('this is iscompleted in card footer', {id, isCompleted, isImportant});
   return (
     <div
       className={`w-full flex justify-between items-center  ${

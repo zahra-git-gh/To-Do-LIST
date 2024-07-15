@@ -1,5 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import { getAllTodos, postTodo, deleteTodo, updateTodo} from '../api/todo.api';
+import { getAllDirectory, postDirectory, updateDirectory , deleteDirectory} from '../api/directory.api';
 
 
 const initialState={
@@ -58,6 +59,47 @@ export const removeTodo=createAsyncThunk('todos/deleteTodo', async (obj)=>{
     }
 })
 
+export const fetchDirectory=createAsyncThunk('todos/fetchDirectory', async (token)=>{
+    try {
+        const directories=await getAllDirectory(token)
+        return directories.directories;
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+export const createDirectory=createAsyncThunk('todos/postDirectory', async(obj)=>{
+    const {token , data}=obj;
+    try {
+        const newDirectory=await postDirectory(data , token);
+        return newDirectory.directory
+    } catch (error) {
+        console.log(error);
+        throw new Error(error)
+    }
+})
+
+export const editDirectory=createAsyncThunk('todos/updateDirectory', async (obj)=>{
+    const {token , id, data}=obj
+    try {
+        const updatedDir=await updateDirectory(id, data, token);
+        return updatedDir.directory
+    } catch (error) {
+        console.log(error);
+        throw new Error(error)
+    }
+})
+
+export const removeDirectory=await createAsyncThunk('todos/deleteDirectory', async(obj)=>{
+    const {id, token}=obj
+    try {
+        await deleteDirectory(id, token);
+        return id
+    } catch (error) {
+        console.log(error);
+        throw new Error(error)
+    }
+})
 
 const todosSlice=createSlice({
     name:'todos',
@@ -168,8 +210,61 @@ const todosSlice=createSlice({
         .addCase(removeTodo.rejected, (state)=>{
             state.loading=false
         })
+        .addCase(fetchDirectory.pending, (state)=>{
+            state.loading=true
+        })
+        .addCase(fetchDirectory.fulfilled, (state, action)=>{
+            state.loading=false;
+            state.directories=action.payload;
+        })
+        .addCase(fetchDirectory.rejected, (state)=>{
+            state.loading=false
+        })
+        .addCase(createDirectory.pending, (state)=>{
+            state.loading=true
+        })
+        .addCase(createDirectory.fulfilled, (state, action)=>{
+            state.loading=false
+            state.directories.push(action.payload)
+        })
+        .addCase(createDirectory.rejected, (state)=>{
+            state.loading=false
+        })
+        .addCase(editDirectory.pending, (state)=>{
+            state.loading=true
+        })
+        .addCase(editDirectory.fulfilled, (state, action)=>{
+            state.loading=false;
+            state.directories=state.directories.map((directory)=>{
+                if(directory._id===action.payload._id){
+                    directory={...directory, ...action.payload};
+                    return directory;
+                }
+                return directory;
+            })
+            state.todos=state.todos.map((todo)=>{
+                if(todo.directory._id===action.payload._id){
+                    todo.directory.name=action.payload.name
+                }
+                return todo
+            })
+        })
+        .addCase(editDirectory.rejected, (state)=>{
+            state.loading=false
+        })
+        .addCase(removeDirectory.pending, (state)=>{
+            state.loading=true
+        })
+        .addCase(removeDirectory.fulfilled, (state, action)=>{
+            state.loading=false
+            state.directories=state.directories.filter((directory)=>directory._id!==action.payload)
+            state.todos=state.todos.filter((todo)=>todo.directory._id!==action.payload)
+        })
+        .addCase(removeDirectory.rejected, (state)=>{
+            state.loading=false
+        })
     }
 })
-export const {addDirectory, updateDirectory, deleteDirectory, addTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData}=todosSlice.actions
+export const {addDirectory, addTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData}=todosSlice.actions
 
 export default todosSlice.reducer

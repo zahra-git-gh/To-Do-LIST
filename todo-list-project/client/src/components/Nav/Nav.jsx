@@ -1,9 +1,10 @@
 import { NewTaskBtn } from "../Add-new-task-button/NewTaskBtn";
 import "./Nav.css";
 import { useModal } from "../../hooks/ModalContext.jsx";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { DirectoryNav } from "../DirectoryCardNav/DirectoryNav.jsx";
+import { fetchDirectory } from "../../redux/todos.slice.js";
 export function Nav({ modalIDD }) {
   const directories = useSelector((state) => state.todo.directories);
   const { isModalOpen, closeModal, modalID, openModal } = useModal();
@@ -12,6 +13,12 @@ export function Nav({ modalIDD }) {
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
+  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDirectory(token));
+  }, [token, dispatch]);
+
   if (modalIDD !== modalID && width < 1280) {
     return null;
   }
@@ -70,9 +77,9 @@ export function Nav({ modalIDD }) {
               {directories.map((directory, i) => {
                 return <DirectoryNav dir={directory} key={i} />;
               })}
-              <p className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 cursor-pointer hover:text-red-500 mt-4 dark:text-slate-400 dark:hover:text-slate-200">
+              {/* <p className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 cursor-pointer hover:text-red-500 mt-4 dark:text-slate-400 dark:hover:text-slate-200">
                 Main
-              </p>
+              </p> */}
               <button
                 onClick={() => openModal(6)}
                 className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600"

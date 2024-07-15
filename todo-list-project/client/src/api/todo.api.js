@@ -8,8 +8,6 @@ const BASE_URL=import.meta.env.VITE_API_URL;
 
 export const getAllTodos=async (token)=>{
     try {
-        console.log(BASE_URL+'/todo');
-        console.log(token);
         const todos=await getData(`${BASE_URL}/todo`, token)
         return todos
     } catch (error) {

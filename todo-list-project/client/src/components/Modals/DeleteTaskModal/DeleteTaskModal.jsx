@@ -7,7 +7,6 @@ export function DeleteTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  console.log("this is id of todo?", id);
   async function handleDelete() {
     try {
       await dispatch(removeTodo({ id, token }));

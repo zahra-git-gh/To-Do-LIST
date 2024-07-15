@@ -2,13 +2,12 @@ import "./CompleteBtn.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editTodo } from "../../redux/todos.slice";
 export function CompleteBtn({ isCompleted, id }) {
-  console.log('this is iscompleted in complete button', {id, isCompleted});
   const dispatch = useDispatch();
-  const token=useSelector((state)=>state.user.token)
+  const token = useSelector((state) => state.user.token);
   return (
     <button
       onClick={() => {
-        dispatch(editTodo({ id, data:{isCompleted: !isCompleted} , token}));
+        dispatch(editTodo({ id, data: { isCompleted: !isCompleted }, token }));
       }}
       style={{
         backgroundColor: isCompleted ? "#a1ffb1" : "#fede4b",

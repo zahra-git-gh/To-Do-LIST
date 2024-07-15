@@ -48,7 +48,7 @@ export function ParentTaskCards({ isList }) {
       {filterTodosSelect.map((todo, i) => {
         return (
           <Card
-            key={todo.id}
+            key={i}
             {...todo}
             isNew={i === 0 ? true : false}
             isList={isList}

@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { CardDate } from "../CardDate/CardDate";
 import { CardFooter } from "../CardFooter/CardFooter";
 import { DirectoryCard } from "../Directory/DirectoryCard";
@@ -18,11 +19,13 @@ export function Card({
     const array = date.split("-").reverse().join("/");
     return array;
   }
-
+  const taskDir = useSelector((state) => state.todo.directories).filter(
+    (dir) => dir._id === directory
+  );
   // changeDeadline("2024-07-04")
   return (
     <section className={`flex flex-col items-center`}>
-      <DirectoryCard dirName={directory.name} />
+      <DirectoryCard dirName={taskDir[0]?.name} />
       <section
         style={{ backgroundColor: isNew && "#333d91" }}
         className={`${isList && "w-full"} ${isList ? "h-24 sm:h-32" : "h-56"} ${

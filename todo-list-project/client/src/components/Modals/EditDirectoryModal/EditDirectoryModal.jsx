@@ -1,14 +1,15 @@
 import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDirectory } from "../../../redux/todos.slice";
+import { editDirectory } from "../../../redux/todos.slice";
 import { useEffect, useState } from "react";
 export function EditDirectoryModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const directories = useSelector((state) => state.todo.directories);
-  const directory = directories.filter((dir) => dir.id === id)[0];
+  const directory = directories.filter((dir) => dir._id === id)[0];
   const [data, setData] = useState();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
   useEffect(() => {
     if (directory) {
       setData(directory);
@@ -17,7 +18,7 @@ export function EditDirectoryModal({ modalIDD }) {
 
   function submitEdit(e) {
     e.preventDefault();
-    dispatch(updateDirectory(data));
+    dispatch(editDirectory({ id, data, token }));
     setData(null);
     closeModal();
   }

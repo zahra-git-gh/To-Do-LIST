@@ -8,25 +8,19 @@ export function EditTaskModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const todos = useSelector((state) => state.todo.todos);
   const todo = todos.filter((todo) => todo._id === id)[0];
-  // const directories = useSelector((state) => state.todo.directories);
-  // console.log(directories);
+  const directories = useSelector((state) => state.todo.directories);
   const [data, setData] = useState();
   const [isImportant, setIsImportant] = useState();
   const [isCompleted, setIsCompleted] = useState();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
-  console.log("this is ID of todo", id);
   function handleSubmitEdit(e) {
     e.preventDefault();
-    //some code and submit
+
     dispatch(
       editTodo({
         data: {
           ...data,
-          // directory:
-          //   typeof data.directory === "string"
-          //     ? JSON.parse(data.directory)
-          //     : data.directory,
           isImportant,
           isCompleted,
         },
@@ -130,15 +124,13 @@ export function EditTaskModal({ modalIDD }) {
                 >
                   Select a directory
                 </label>
-                {/* <select
+                <select
                   className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs text-slate-600 sm:text-sm xl:text-base"
                   id="directory"
                   onChange={(e) => {
                     setData({ ...data, directory: e.target.value });
                   }}
-                  // defaultValue={data && data?.directory.name}
                 >
-                  <option value={'{"name":"Main", "id":"123"}'}>Main</option>
                   {directories.map((directory, i) => {
                     return (
                       <option
@@ -146,13 +138,13 @@ export function EditTaskModal({ modalIDD }) {
                         selected={
                           data?.directory?.name == directory.name && "selected"
                         }
-                        value={`{"name":"${directory.name}", "id":"${directory.id}"}`}
+                        value={directory._id}
                       >
                         {directory.name}
                       </option>
                     );
                   })}
-                </select> */}
+                </select>
               </div>
               <div className="flex items-center gap-x-2 mt-5">
                 <CheckBox
