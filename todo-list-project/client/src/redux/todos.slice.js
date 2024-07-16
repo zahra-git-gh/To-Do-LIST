@@ -9,7 +9,9 @@ const initialState={
     searchTasks:'',
     isList:false,
     sortBy:'',
-    loading:false
+    loading:false,
+    error:false,
+    isAdded:false
 }
 
 export const fetchTodos=createAsyncThunk('todos/fetchTodos', async(token)=>{
@@ -105,43 +107,6 @@ const todosSlice=createSlice({
     name:'todos',
     initialState,
     reducers:{
-        addDirectory:(state, action)=>{
-            state.directories.unshift(action.payload)
-        },
-        updateDirectory:(state, action)=>{
-                state.directories=state.directories.map((directory)=>{
-                    if(directory.id===action.payload.id){
-                        directory.name=action.payload.name
-                    }
-                    return directory
-                }),
-                state.todos=state.todos.map((todo)=>{
-                    if(todo.directory.id===action.payload.id){
-                        todo.directory.name=action.payload.name
-                    }
-                    return todo
-                })
-        },
-        deleteDirectory:(state, action)=>{
-            state.directories=state.directories.filter((directory)=>directory.id!==action.payload)
-            state.todos=state.todos.filter((todo)=>todo.directory.id!==action.payload)
-        },
-        addTodo:(state, action)=>{
-            state.todos.unshift(action.payload)
-        },
-        updateTodo:(state, action)=>{
-            state.todos=state.todos.map((todo)=>{
-                if(todo.id===action.payload.id){
-                    todo={...todo,...action.payload}
-                    return todo
-                }
-                return todo
-                
-            })
-        },
-        deleteTodo:(state, action)=>{
-            state.todos=state.todos.filter((todo)=>todo.id!==action.payload)
-        }, 
         listStyle:(state)=>{
             state.isList=true
         },
@@ -160,35 +125,47 @@ const todosSlice=createSlice({
             state.searchTasks=initialState.searchTasks
             state.sortBy=initialState.sortBy
             state.todos=initialState.todos
+        },
+        deleteIsAdded:(state)=>{
+            state.isAdded=false
         }
     },
     extraReducers:(builder)=>{
         builder
         .addCase(fetchTodos.pending, (state)=>{
             state.loading=true;
+            state.error=false;
         })
         .addCase(fetchTodos.fulfilled, (state, action)=>{
+            state.error=false;
             state.loading=false;
-            state.todos.push(...action.payload);
+            state.todos.push(...action.payload)
         })
         .addCase(fetchTodos.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(createTodo.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(createTodo.fulfilled, (state, action)=>{
-            state.loading=false
-            state.todos.unshift(action.payload)
+            state.error=false;
+            state.loading=false;
+            state.isAdded=true;
+            state.todos.unshift(action.payload);
         })
         .addCase(createTodo.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(editTodo.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(editTodo.fulfilled, (state, action)=>{
-            state.loading=false
+            state.error=false;
+            state.loading=false;
             state.todos=state.todos.map((todo)=>{
                 if(todo._id===action.payload._id){
                     todo={...todo,...action.payload}
@@ -198,42 +175,54 @@ const todosSlice=createSlice({
             })
         })
         .addCase(editTodo.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(removeTodo.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(removeTodo.fulfilled, (state, action)=>{
-            state.loading=false
+            state.error=false;
+            state.loading=false;
             state.todos=state.todos.filter((todo)=>todo._id!==action.payload)
         })
         .addCase(removeTodo.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(fetchDirectory.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(fetchDirectory.fulfilled, (state, action)=>{
+            state.error=false;
             state.loading=false;
-            state.directories=action.payload;
+            state.directories.push(...action.payload);
         })
         .addCase(fetchDirectory.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(createDirectory.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(createDirectory.fulfilled, (state, action)=>{
-            state.loading=false
+            state.error=false;
+            state.loading=false;
             state.directories.unshift(action.payload)
         })
         .addCase(createDirectory.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
         .addCase(editDirectory.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(editDirectory.fulfilled, (state, action)=>{
+            state.error=false;
             state.loading=false;
             state.directories=state.directories.map((directory)=>{
                 if(directory._id===action.payload._id){
@@ -250,21 +239,25 @@ const todosSlice=createSlice({
             })
         })
         .addCase(editDirectory.rejected, (state)=>{
+            state.error=true;
             state.loading=false
         })
         .addCase(removeDirectory.pending, (state)=>{
-            state.loading=true
+            state.error=false;
+            state.loading=true;
         })
         .addCase(removeDirectory.fulfilled, (state, action)=>{
-            state.loading=false
+            state.error=false;
+            state.loading=false;
             state.directories=state.directories.filter((directory)=>directory._id!==action.payload)
-            state.todos=state.todos.filter((todo)=>todo.directory._id!==action.payload)
+            state.todos=state.todos.filter((todo)=>todo.directory!==action.payload)
         })
         .addCase(removeDirectory.rejected, (state)=>{
-            state.loading=false
+            state.error=true;
+            state.loading=false;
         })
     }
 })
-export const {addDirectory, addTodo, listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData}=todosSlice.actions
+export const {listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData, deleteIsAdded}=todosSlice.actions
 
 export default todosSlice.reducer

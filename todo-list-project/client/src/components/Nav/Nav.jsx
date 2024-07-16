@@ -80,9 +80,6 @@ export function Nav({ modalIDD }) {
               {directories.map((directory, i) => {
                 return <DirectoryNav dir={directory} key={i} />;
               })}
-              {/* <p className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 cursor-pointer hover:text-red-500 mt-4 dark:text-slate-400 dark:hover:text-slate-200">
-                Main
-              </p> */}
               <button
                 onClick={() => openModal(6)}
                 className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600"
