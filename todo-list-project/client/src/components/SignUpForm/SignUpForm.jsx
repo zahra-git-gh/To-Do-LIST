@@ -3,13 +3,15 @@ import { registerUser } from "../../api/user.api";
 import { useState } from "react";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
+import { Link, useNavigate } from "react-router-dom";
 export function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState();
   const [isHide, setIsHide] = useState(true);
+  const navigate = useNavigate();
   const registerMessage =
-    "Thanks for signing up. Your account has been created. Please check your email.";
+    "Your account has been created. Please check your email.";
   //react hook form for handle our form create task
   const {
     handleSubmit,
@@ -43,6 +45,9 @@ export function SignUpForm() {
       setAlertMessage("");
       await registerUser(value);
       setAlertMessage(registerMessage);
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000);
     } catch (error) {
       setAlertMessage(
         error.message.includes(1100)
@@ -145,9 +150,20 @@ export function SignUpForm() {
               className="mt-7 bg-[#333d91] text-white w-full px-4 py-3 rounded-lg hover:bg-[#5163ae] text-xs sm:text-sm xl:text-base flex justify-center items-center"
               disabled={isLoading}
             >
-              <LoadingSpinner isLoading={isLoading}/>
+              <LoadingSpinner isLoading={isLoading} />
               {!isLoading && "Submit"}
             </button>
+            <div className="w-full mt-4 flex justify-center">
+              <p className="font-thin text-slate-500">
+                Already have account?
+                <Link
+                  to={"/login"}
+                  className="text-[#333d91] text-center mt-4 ms-2 font-semibold"
+                >
+                  Login
+                </Link>
+              </p>
+            </div>
           </form>
         </section>
       </div>

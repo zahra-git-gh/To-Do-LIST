@@ -94,7 +94,7 @@ export function UserProfile({ modalIDD }) {
             {todayTodos(today1).todayTodosArr.length > 0 ? (
               <div className="mt-8">
                 <p className="text-sm sm:text-sm xl:text-base text-slate-600 dark:text-slate-400">
-                  Today's tasks
+                  {"Today's tasks"}
                 </p>
                 <ul className="ml-4 max-h-60 overflow-y-auto todays-tasks">
                   {todayTodos(today1).todayTodosArr.map((todo, i) => {

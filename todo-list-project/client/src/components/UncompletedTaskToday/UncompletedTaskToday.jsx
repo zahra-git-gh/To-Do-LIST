@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useModal } from "../../hooks/ModalContext";
 
 export function UncompletedTaskToday({ data, modalIDD }) {
@@ -22,7 +23,9 @@ export function UncompletedTaskToday({ data, modalIDD }) {
                       key={i}
                       className="py-2 sm:text-sm text-xs xl:text-base hover:text-red-500 text-slate-400 cursor-pointer dark:hover:text-slate-200"
                     >
-                      <a>{todo.title}</a>
+                      <Link state={todo} to={`/task/${todo._id}`}>
+                        {todo.title}
+                      </Link>
                     </li>
                   );
                 })}

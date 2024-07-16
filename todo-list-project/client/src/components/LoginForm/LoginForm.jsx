@@ -5,6 +5,7 @@ import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { useState } from "react";
 import { setToken } from "../../redux/user.slice";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
+import { Link, useNavigate } from "react-router-dom";
 
 export function LoginForm() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export function LoginForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isHide, setIsHide] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const {
     handleSubmit,
     reset,
@@ -43,6 +45,9 @@ export function LoginForm() {
       localStorage.setItem("token", response.token);
       setIsSuccess(true);
       setAlertMessage("Login successful!");
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
       console.log(error.message);
       setAlertMessage(error.message);
@@ -134,6 +139,11 @@ export function LoginForm() {
               <LoadingSpinner isLoading={isLoading} />
               {!isLoading && "Submit"}
             </button>
+            <div className="w-full flex justify-center">
+              <Link to={"/signup"} className="text-[#333d91] text-center mt-4">
+                Create Account
+              </Link>
+            </div>
           </form>
         </section>
       </div>

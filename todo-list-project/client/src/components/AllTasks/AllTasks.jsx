@@ -5,26 +5,32 @@ import { useEffect, useState } from "react";
 import { deleteIsAdded, fetchTodos } from "../../redux/todos.slice";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { Toast } from "../ToastTodo/Toast";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 export function AllTasks() {
   const isList = useSelector((state) => state.todo.isList);
   const token = useSelector((state) => state.user.token);
   const isLoading = useSelector((state) => state.todo.loading);
   const isAdded = useSelector((state) => state.todo.isAdded);
   const isError = useSelector((state) => state.todo.error);
+  const directories = useSelector((state) => state.todo.directories);
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const { pathname, state: todo } = useLocation();
+  const { dirId } = useParams();
   const title =
     pathname === "/"
-      ? "All"
+      ? "All tasks"
       : pathname === "/important"
-      ? "Important"
+      ? "Important tasks"
       : pathname === "/today"
-      ? "Today"
+      ? "Today tasks"
       : pathname === "/completed"
-      ? "Completed"
+      ? "Completed tasks"
       : pathname === "/uncompleted"
-      ? "Uncompleted"
+      ? "Uncompleted tasks"
+      : pathname.includes("/task")
+      ? `${todo.title}`
+      : pathname.includes("/directory")
+      ? `${directories.find((dir) => dir._id === dirId).name}'s`
       : "";
   const [todosLength2, setTodosLength2] = useState();
   useEffect(() => {
@@ -60,7 +66,7 @@ export function AllTasks() {
               !isLoading && "hidden"
             } w-12 h-12 md:w-16 md:h-16w-16 spinner bg-center bg-cover bg-[url('./spinner_home.png')] dark:bg-[url('./spinner_home_dark.png')] animate-spin`}
           ></div>
-          {!isLoading && `${title} tasks (${todosLength2} tasks)`}
+          {!isLoading && `${title} (${todosLength2} tasks)`}
         </h1>
       </div>
       <ListStylelSelect />

@@ -1,12 +1,34 @@
+import { NavLink } from "react-router-dom";
 import { useModal } from "../../hooks/ModalContext";
 
 export function DirectoryNav({ dir }) {
   const { openModal, setDataID } = useModal();
+  const isDark = document.documentElement.className;
   return (
-    <div className="flex flex-row justify-between group mt-4 pl-2 pr-4">
-      <p className="text-xs sm:text-sm xl:text-base text-slate-500  cursor-pointer hover:text-red-500  dark:text-slate-400 dark:hover:text-slate-200">
+    <div className="">
+      <NavLink
+        style={({ isActive }) => {
+          return {
+            backgroundColor:
+              isActive && isDark === "dark"
+                ? "rgb(51 65 85)"
+                : isActive && "rgb(226 232 240)",
+
+            color:
+              isActive && isDark === "dark"
+                ? "rgb(226 232 240)"
+                : isActive && "rgb(239 68 68)",
+            borderRight:
+              isActive && isDark === "dark"
+                ? "4px solid rgb(226 232 240)"
+                : isActive && "4px solid rgb(239 68 68)",
+          };
+        }}
+        to={`/directory/${dir._id}`}
+        className="text-xs sm:text-sm xl:text-base text-slate-500  cursor-pointer hover:text-red-500  dark:text-slate-400 dark:hover:text-slate-200 flex flex-row justify-between group pl-7 pr-4 py-2"
+      >
         {dir.name}
-      </p>
+      </NavLink>
       <div
         style={{ display: dir.name === "Main" ? "none" : "flex" }}
         className="flex "

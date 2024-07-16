@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { NewTaskCard } from "../Add-new-task-card/NewTaskCard";
 import { Card } from "../Card/Card";
 import { useSelector } from "react-redux";
@@ -7,12 +7,15 @@ export function ParentTaskCards({ isList, todoLength }) {
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
   //filter cards with value search input
-  const searchValue = useSelector((state) => state.todo.searchTasks);
-  const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
+  //!delete
+  // const searchValue = useSelector((state) => state.todo.searchTasks);
+  // const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
+  //!
   const sortBySelect = useSelector((state) => state.todo.sortBy);
   // const [todosRoute, setTodosRoute]=useState(todos)
   let todosRoute = [];
-  const { pathname } = useLocation();
+  const { pathname, state: todo } = useLocation();
+  const { dirId } = useParams();
   //get todos for today
   const today = new Date();
   const year = today.getFullYear();
@@ -24,20 +27,26 @@ export function ParentTaskCards({ isList, todoLength }) {
   const today1 = Date.parse(formattedDate);
   // todayTodos(today1, todos)
   if (pathname === "/") {
-    todosRoute.push(...filterTodos);
+    todosRoute.push(...todos);
     todoLength(todosRoute.length);
   } else if (pathname === "/today") {
-    const { todayTodosArr } = todayTodos(today1, filterTodos);
+    const { todayTodosArr } = todayTodos(today1, todos);
     todosRoute.push(...todayTodosArr);
     todoLength(todosRoute.length);
   } else if (pathname === "/important") {
-    todosRoute = [...filterTodos].filter((todo) => todo.isImportant === true);
+    todosRoute = [...todos].filter((todo) => todo.isImportant === true);
     todoLength(todosRoute.length);
   } else if (pathname === "/completed") {
-    todosRoute = [...filterTodos].filter((todo) => todo.isCompleted === true);
+    todosRoute = [...todos].filter((todo) => todo.isCompleted === true);
     todoLength(todosRoute.length);
   } else if (pathname === "/uncompleted") {
-    todosRoute = [...filterTodos].filter((todo) => todo.isCompleted === false);
+    todosRoute = [...todos].filter((todo) => todo.isCompleted === false);
+    todoLength(todosRoute.length);
+  } else if (pathname.includes("/task")) {
+    todosRoute = [todo];
+    todoLength(todosRoute.length);
+  } else if (pathname.includes("/directory")) {
+    todosRoute = [...todos].filter((todo) => todo.directory === dirId);
     todoLength(todosRoute.length);
   } else {
     //not found

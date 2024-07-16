@@ -5,14 +5,13 @@ export function Darkmode() {
     const darkBtn = document.querySelector(".darkBtn1");
     if (html.classList.contains("dark")) {
       darkBtn.classList.remove("darkBtn");
-      // html.classList.remove('dark')
+      localStorage.removeItem("darkMode");
       html.removeAttribute("class");
     } else {
       darkBtn.classList.add("darkBtn");
-      // html.classList.add('dark')
+      localStorage.setItem("darkMode", true);
       html.setAttribute("class", "dark");
     }
-    // darkBtn.classList.toggle('darkBtn')
   }
   return (
     <section className="w-full mt-8">

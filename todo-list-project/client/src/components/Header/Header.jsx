@@ -23,7 +23,7 @@ export function Header() {
       <div className="mr-8 xl:mr-0">
         <Menu />
       </div>
-      <div className="flex-1 col-span-3 md:mr-8">
+      <div className="flex-1 col-span-3 md:mr-8 row-start-2">
         <SearchInput />
       </div>
       <div className="place-self-center">
@@ -40,8 +40,8 @@ export function Header() {
         <div className="relative w-max">
           {todayTodos(today1, todos).todayTodosUncompleted.length > 0 && (
             <>
-            <div className="w-2 h-2  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
-            <div className="w-2 h-2 animate-ping  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
+              <div className="w-2 h-2  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
+              <div className="w-2 h-2 animate-ping  bg-red-500 rounded-full absolute  -right-1 -top-0"></div>
             </>
           )}
           <div
