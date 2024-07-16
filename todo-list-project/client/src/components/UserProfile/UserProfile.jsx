@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useModal } from "../../hooks/ModalContext";
 import { BarProgress } from "../BarProgress/BarProgress";
 import { Darkmode } from "../Darkmode/Darkmode";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAllData } from "../../redux/todos.slice";
-
+import { getUser } from "../../api/user.api";
+import "./UserProfile.css";
 export function UserProfile({ modalIDD }) {
   const { isModalOpen, closeModal, modalID } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
   const dispatch = useDispatch();
+  // let userName = "User";
+  const [userName, setUserName] = useState("User");
+  const token = useSelector((state) => state.user.token);
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
@@ -24,6 +28,12 @@ export function UserProfile({ modalIDD }) {
     });
     return completed;
   }
+  //get user name data
+  useEffect(() => {
+    getUser(token).then((response) => {
+      setUserName(response[0].name);
+    });
+  }, [token]);
   //delete all data from redux
   function deleteAllDataHandler() {
     dispatch(deleteAllData());
@@ -61,7 +71,7 @@ export function UserProfile({ modalIDD }) {
           <section className="w-full h-full p-5 flex flex-col">
             <div className="flex items-center justify-center">
               <p className="dark:text-slate-400 text-sm sm:text-xs xl:text-base">
-                Hi, User!
+                {` Hi, ${userName}!`}
               </p>
               <div className="profile w-10 h-10 rounded-full bg-[url('./avatar-1.jpg')] bg-center bg-cover ml-4"></div>
             </div>
@@ -86,7 +96,7 @@ export function UserProfile({ modalIDD }) {
                 <p className="text-sm sm:text-sm xl:text-base text-slate-600 dark:text-slate-400">
                   Today's tasks
                 </p>
-                <ul className="ml-4">
+                <ul className="ml-4 max-h-60 overflow-y-auto todays-tasks">
                   {todayTodos(today1).todayTodosArr.map((todo, i) => {
                     return (
                       <li

@@ -59,7 +59,7 @@ export function Nav({ modalIDD }) {
               </li>
             </ul>
           </nav>
-          <section className="pl-4 pb-4 max-h-80 xl:max-h-52 overflow-y-auto">
+          <section className="pl-4 pb-4 max-h-80 xl:max-h-52 overflow-y-auto directories">
             <div
               onClick={() => setIsShow(!isShow)}
               className="flex flex-row items-center"
