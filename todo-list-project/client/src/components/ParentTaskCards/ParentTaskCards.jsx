@@ -1,39 +1,75 @@
+import { useLocation } from "react-router-dom";
 import { NewTaskCard } from "../Add-new-task-card/NewTaskCard";
 import { Card } from "../Card/Card";
 import { useSelector } from "react-redux";
-export function ParentTaskCards({ isList }) {
+import { todayTodos } from "../../utils/todayTodos";
+export function ParentTaskCards({ isList, todoLength }) {
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
   //filter cards with value search input
   const searchValue = useSelector((state) => state.todo.searchTasks);
   const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
   const sortBySelect = useSelector((state) => state.todo.sortBy);
+  // const [todosRoute, setTodosRoute]=useState(todos)
+  let todosRoute = [];
+  const { pathname } = useLocation();
+  //get todos for today
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+  const today1 = Date.parse(formattedDate);
+  // todayTodos(today1, todos)
+  if (pathname === "/") {
+    todosRoute.push(...filterTodos);
+    todoLength(todosRoute.length);
+  } else if (pathname === "/today") {
+    const { todayTodosArr } = todayTodos(today1, filterTodos);
+    todosRoute.push(...todayTodosArr);
+    todoLength(todosRoute.length);
+  } else if (pathname === "/important") {
+    todosRoute = [...filterTodos].filter((todo) => todo.isImportant === true);
+    todoLength(todosRoute.length);
+  } else if (pathname === "/completed") {
+    todosRoute = [...filterTodos].filter((todo) => todo.isCompleted === true);
+    todoLength(todosRoute.length);
+  } else if (pathname === "/uncompleted") {
+    todosRoute = [...filterTodos].filter((todo) => todo.isCompleted === false);
+    todoLength(todosRoute.length);
+  } else {
+    //not found
+    //navigate to not found page
+  }
+  console.log(pathname); // /routename
 
   function sortArray(sortBy) {
     if (sortBy === "Uncompleted first") {
-      const todos = [...filterTodos].sort((a, b) => {
+      const todos = [...todosRoute].sort((a, b) => {
         return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? 1 : -1;
       });
       return todos;
     } else if (sortBy === "Completed first") {
-      const todos = [...filterTodos].sort((a, b) => {
+      const todos = [...todosRoute].sort((a, b) => {
         return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? -1 : 1;
       });
       return todos;
     } else if (sortBy === "later first") {
-      const todos = [...filterTodos].sort((a, b) => {
+      const todos = [...todosRoute].sort((a, b) => {
         return new Date(b.deadline) - new Date(a.deadline);
       });
       return todos;
     } else if (sortBy === "Earlier first") {
-      const todos = [...filterTodos].sort((a, b) => {
+      const todos = [...todosRoute].sort((a, b) => {
         return new Date(a.deadline) - new Date(b.deadline);
       });
       return todos;
     } else if (sortBy === "Order added") {
-      return [...filterTodos];
+      return [...todosRoute];
     } else {
-      return [...filterTodos];
+      return [...todosRoute];
     }
   }
   const filterTodosSelect = sortArray(sortBySelect);
