@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { deleteIsAdded, fetchTodos } from "../../redux/todos.slice";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { Toast } from "../ToastTodo/Toast";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 export function AllTasks() {
   const isList = useSelector((state) => state.todo.isList);
   const token = useSelector((state) => state.user.token);
@@ -13,6 +13,8 @@ export function AllTasks() {
   const isAdded = useSelector((state) => state.todo.isAdded);
   const isError = useSelector((state) => state.todo.error);
   const directories = useSelector((state) => state.todo.directories);
+  const [searchParams] = useSearchParams();
+  const q = searchParams.get("q");
   const dispatch = useDispatch();
   const { pathname, state: todo } = useLocation();
   const { dirId } = useParams();
@@ -31,6 +33,8 @@ export function AllTasks() {
       ? `${todo.title}`
       : pathname.includes("/directory")
       ? `${directories.find((dir) => dir._id === dirId).name}'s`
+      : pathname.includes("/result")
+      ? `${q}`
       : "";
   const [todosLength2, setTodosLength2] = useState();
   useEffect(() => {
@@ -71,7 +75,7 @@ export function AllTasks() {
       </div>
       <ListStylelSelect />
       <ParentTaskCards
-        isList={isList}
+        isList={isList === "true"}
         todoLength={(length) => {
           setTodosLength2(length);
         }}

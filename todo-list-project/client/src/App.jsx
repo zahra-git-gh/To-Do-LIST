@@ -9,6 +9,10 @@ import { LoginPage } from "./pages/LoginPage";
 function App() {
   //!verify if token does not exist
   const token = useSelector((state) => state.user.token);
+  const html = document.getElementsByTagName("html")[0];
+  if (localStorage.getItem("theme") === "dark") {
+    html.setAttribute("class", "dark");
+  }
   return (
     <>
       <BrowserRouter>

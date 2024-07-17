@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function SearchResult() {
   const todos = useSelector((state) => state.todo.todos);
   const searchValue = useSelector((state) => state.todo.searchTasks);
   const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
-  console.log(filterTodos);
+  const navigate = useNavigate();
   const [showSearchResult, setShowSearchResult] = useState(false);
   const searchResultRef = useRef(null);
   useEffect(() => {
@@ -64,7 +64,13 @@ export function SearchResult() {
         )}
       </ul>
       {filterTodos.length > 0 && (
-        <button className="btn bg-red-100 text-red-500 w-full  py-3 rounded-lg hover:bg-red-200 text-xs sm:text-sm xl:text-base dark:bg-slate-700 dark:text-slate-100 mt-2">
+        <button
+          onClick={() => {
+            console.log(searchValue);
+            navigate({ pathname: "/result", search: `q=${searchValue}` });
+          }}
+          className="btn bg-red-100 text-red-500 w-full  py-3 rounded-lg hover:bg-red-200 text-xs sm:text-sm xl:text-base dark:bg-slate-700 dark:text-slate-100 mt-2"
+        >
           {`All result for "${searchValue}"`}
         </button>
       )}

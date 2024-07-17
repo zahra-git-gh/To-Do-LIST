@@ -16,7 +16,10 @@ export function SearchInput() {
     setQuery(e.target.value);
   }
   return (
-    <form className="w-full md:max-w-xs relative transition-all duration-300 ">
+    <form
+      onSubmit={(e) => e.preventDefault()}
+      className="w-full md:max-w-xs relative transition-all duration-300 "
+    >
       <input
         onChange={handleSearch}
         type="search"

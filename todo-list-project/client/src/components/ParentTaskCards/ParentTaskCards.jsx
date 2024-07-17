@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import { NewTaskCard } from "../Add-new-task-card/NewTaskCard";
 import { Card } from "../Card/Card";
 import { useSelector } from "react-redux";
@@ -6,11 +6,10 @@ import { todayTodos } from "../../utils/todayTodos";
 export function ParentTaskCards({ isList, todoLength }) {
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
-  //filter cards with value search input
-  //!delete
-  // const searchValue = useSelector((state) => state.todo.searchTasks);
-  // const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
-  //!
+  //filter cards with value search input all
+  const [searchParams] = useSearchParams();
+  const searchValue = searchParams.get("q");
+  const filterTodos = todos.filter((todo) => todo.title.includes(searchValue));
   const sortBySelect = useSelector((state) => state.todo.sortBy);
   // const [todosRoute, setTodosRoute]=useState(todos)
   let todosRoute = [];
@@ -27,11 +26,11 @@ export function ParentTaskCards({ isList, todoLength }) {
   const today1 = Date.parse(formattedDate);
   // todayTodos(today1, todos)
   if (pathname === "/") {
-    todosRoute.push(...todos);
+    todosRoute = [...todos];
     todoLength(todosRoute.length);
   } else if (pathname === "/today") {
     const { todayTodosArr } = todayTodos(today1, todos);
-    todosRoute.push(...todayTodosArr);
+    todosRoute = [...todayTodosArr];
     todoLength(todosRoute.length);
   } else if (pathname === "/important") {
     todosRoute = [...todos].filter((todo) => todo.isImportant === true);
@@ -47,6 +46,9 @@ export function ParentTaskCards({ isList, todoLength }) {
     todoLength(todosRoute.length);
   } else if (pathname.includes("/directory")) {
     todosRoute = [...todos].filter((todo) => todo.directory === dirId);
+    todoLength(todosRoute.length);
+  } else if (pathname.includes("result")) {
+    todosRoute = [...filterTodos];
     todoLength(todosRoute.length);
   } else {
     //not found

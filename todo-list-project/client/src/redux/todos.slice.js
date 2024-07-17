@@ -7,7 +7,7 @@ const initialState={
     directories:[],
     todos:[],
     searchTasks:'',
-    isList:false,
+    isList:localStorage.getItem('isList'),
     sortBy:'',
     loading:false,
     error:false,
@@ -108,10 +108,10 @@ const todosSlice=createSlice({
     initialState,
     reducers:{
         listStyle:(state)=>{
-            state.isList=true
+            state.isList='true'
         },
         cardStyle:(state)=>{
-            state.isList=false
+            state.isList='false'
         },
         addSortBy:(state, action)=>{
             state.sortBy=action.payload
