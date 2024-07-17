@@ -5,6 +5,7 @@ import { HomePage } from "./pages/HomePage";
 import { useSelector } from "react-redux";
 import { SignUpPage } from "./pages/SignUpPage";
 import { LoginPage } from "./pages/LoginPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
   //!verify if token does not exist
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <ModalProvider>
           <Routes>
+            <Route path="/notfound" element={<NotFoundPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
