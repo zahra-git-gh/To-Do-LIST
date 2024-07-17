@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 import { useModal } from "../../hooks/ModalContext";
 import { BarProgress } from "../BarProgress/BarProgress";
 import { Darkmode } from "../Darkmode/Darkmode";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteAllData } from "../../redux/todos.slice";
+import { useSelector } from "react-redux";
 import { getUser } from "../../api/user.api";
 import "./UserProfile.css";
 export function UserProfile({ modalIDD }) {
-  const { isModalOpen, closeModal, modalID } = useModal();
+  const { isModalOpen, closeModal, modalID, openModal } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
-  const dispatch = useDispatch();
+
   // let userName = "User";
   const [userName, setUserName] = useState("User");
   const token = useSelector((state) => state.user.token);
@@ -34,9 +33,9 @@ export function UserProfile({ modalIDD }) {
       setUserName(response[0].name);
     });
   }, [token]);
-  //delete all data from redux
+  //open modal delete all data
   function deleteAllDataHandler() {
-    dispatch(deleteAllData());
+    openModal(9);
   }
   const today = new Date();
   const year = today.getFullYear();

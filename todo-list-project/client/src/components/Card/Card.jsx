@@ -16,9 +16,13 @@ export function Card({
 }) {
   //change deadline to yy/mm/dd structure
   function changeDeadline(date) {
-    const newDate=new Date(date)
-    let formattedDate = newDate.toLocaleDateString("en-US", { year: 'numeric', month: '2-digit', day: '2-digit' });
-    return formattedDate
+    const newDate = new Date(date);
+    let formattedDate = newDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    return formattedDate;
   }
   const taskDir = useSelector((state) => state.todo.directories).filter(
     (dir) => dir._id === directory
@@ -26,7 +30,7 @@ export function Card({
   // changeDeadline("2024-07-04")
   return (
     <section className={`flex flex-col items-center`}>
-      <DirectoryCard dirName={taskDir[0]?.name} />
+      <DirectoryCard dirName={taskDir[0]?.name} id={taskDir[0]?._id} />
       <section
         style={{ backgroundColor: isNew && "#333d91" }}
         className={`${isList && "w-full"} ${isList ? "h-24 sm:h-32" : "h-56"} ${

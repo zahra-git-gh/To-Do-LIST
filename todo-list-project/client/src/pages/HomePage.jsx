@@ -3,6 +3,7 @@ import { AllTasks } from "../components/AllTasks/AllTasks";
 import { Header } from "../components/Header/Header";
 import { CreateDirectoryModal } from "../components/Modals/CreateDirectoryModal/CreateDirectoryModal";
 import { CreateTaskModal } from "../components/Modals/CreateTaskModal/CreateTaskModal";
+import { DeleteAllData } from "../components/Modals/DeleteAllData/DeleteAllData";
 import { DeleteDirectoryModal } from "../components/Modals/DeleteDirectoryModal/DeleteDirectoryModal";
 import { DeleteTaskModal } from "../components/Modals/DeleteTaskModal/DeleteTaskModal";
 import { EditDirectoryModal } from "../components/Modals/EditDirectoryModal/EditDirectoryModal";
@@ -25,6 +26,7 @@ export function HomePage() {
       <CreateDirectoryModal modalIDD={6} />
       <EditDirectoryModal modalIDD={7} />
       <DeleteDirectoryModal modalIDD={8} />
+      <DeleteAllData modalIDD={9} />
       <div className="xl:w-8/12 xl:m-auto xl:pr-4 flex flex-col justify-between h-full">
         <Header />
 

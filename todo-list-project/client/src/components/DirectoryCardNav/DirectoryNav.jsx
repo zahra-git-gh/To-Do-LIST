@@ -4,6 +4,7 @@ import { useModal } from "../../hooks/ModalContext";
 export function DirectoryNav({ dir }) {
   const { openModal, setDataID } = useModal();
   const isDark = document.documentElement.className;
+  console.log(dir);
   return (
     <div className="">
       <NavLink
@@ -25,10 +26,11 @@ export function DirectoryNav({ dir }) {
           };
         }}
         to={`/directory/${dir._id}`}
-        className="text-xs sm:text-sm xl:text-base text-slate-500  cursor-pointer hover:text-red-500  dark:text-slate-400 dark:hover:text-slate-200 flex flex-row justify-between group pl-7 pr-4 py-2"
+        className="text-xs sm:text-sm xl:text-base text-slate-500  cursor-pointer hover:text-red-500  dark:text-slate-400 dark:hover:text-slate-200 group flex flex-row justify-between items-center  pl-7 pr-4 py-2"
       >
         {dir.name}
-      </NavLink>
+
+
       <div
         style={{ display: dir.name === "Main" ? "none" : "flex" }}
         className="flex "
@@ -38,16 +40,17 @@ export function DirectoryNav({ dir }) {
             openModal(7);
             setDataID(dir._id);
           }}
-          className="edit-category hidden group-hover:block w-5 h-5 bg-slate-700 mr-2"
+          className="edit-category hidden group-hover:block w-5 h-5 hover:bg-red-500 dark:hover:bg-slate-200 bg-slate-700 mr-2"
         ></button>
         <button
           onClick={() => {
             openModal(8);
             setDataID(dir._id);
           }}
-          className="delete-category hidden group-hover:block w-5 h-5 bg-slate-700"
+          className="delete-category hidden hover:bg-red-500 dark:hover:bg-slate-200 group-hover:block w-5 h-5 bg-slate-700"
         ></button>
       </div>
+      </NavLink>
     </div>
   );
 }

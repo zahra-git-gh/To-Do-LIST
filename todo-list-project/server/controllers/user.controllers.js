@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {emailSend}=require('../utils/sendEmail');
 const { directoryModel } = require('../models/directory.model');
+const { todoModel } = require('../models/todo.model');
 const getUser=async (req, res)=>{
     try {
         const userId=req.userId;
@@ -85,7 +86,7 @@ const loginUser=async (req, res)=>{
               });
         };
         const token=jwt.sign({userId:user._id}, process.env.SECRET_KEY, {
-            // expiresIn:'30m'
+            expiresIn:'30m'
         })
         res.status(201).json({token})
     } catch (error) {
@@ -104,10 +105,22 @@ const updateUser=async (req, res)=>{
     }
 }
 
+const deleteAllDataOfOneUser =async (req, res)=>{
+    try {
+        const userId=req.userId;
+        const deleteTodos=await todoModel.deleteMany({userId});
+        const deleteDirectories=await directoryModel.deleteMany({userId, name:{ $ne: 'Main' }});
+        res.status(200).json({msg:'data deleted!!'})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
+
 module.exports={
     getUser,
     registerNewUser,
     verifyUser,
     loginUser,
-    updateUser
+    updateUser,
+    deleteAllDataOfOneUser
 }

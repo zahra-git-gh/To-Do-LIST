@@ -1,6 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import { getAllTodos, postTodo, deleteTodo, updateTodo} from '../api/todo.api';
 import { getAllDirectory, postDirectory, updateDirectory , deleteDirectory} from '../api/directory.api';
+import { deleteAllData } from '../api/user.api';
+import { setToken } from './user.slice';
 
 
 const initialState={
@@ -14,17 +16,22 @@ const initialState={
     isAdded:false
 }
 
-export const fetchTodos=createAsyncThunk('todos/fetchTodos', async(token)=>{
+export const fetchTodos=createAsyncThunk('todos/fetchTodos', async(token, {dispatch, rejectWithValue})=>{
     try {
         const todos=await getAllTodos(token)
         return todos.todos.reverse()
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
 
-export const createTodo=createAsyncThunk('todos/postTodo', async(obj)=>{
+export const createTodo=createAsyncThunk('todos/postTodo', async(obj, {dispatch, rejectWithValue})=>{
     const {data, token}=obj
     try {
         console.log(data);
@@ -34,71 +41,122 @@ export const createTodo=createAsyncThunk('todos/postTodo', async(obj)=>{
         return todo.data
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
         
     }
 })
 
-export const editTodo=createAsyncThunk('todos/updateTodo', async(obj)=>{
+export const editTodo=createAsyncThunk('todos/updateTodo', async(obj, {dispatch, rejectWithValue})=>{
     const {id, data, token}=obj
     try {
         const editedTodo=await updateTodo(id, data, token);
         return editedTodo.data
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
 
-export const removeTodo=createAsyncThunk('todos/deleteTodo', async (obj)=>{
+export const removeTodo=createAsyncThunk('todos/deleteTodo', async (obj, {dispatch, rejectWithValue})=>{
     const {id, token}=obj;
     try {
         await deleteTodo(id, token)
         return id
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
 
-export const fetchDirectory=createAsyncThunk('todos/fetchDirectory', async (token)=>{
+export const fetchDirectory=createAsyncThunk('todos/fetchDirectory', async (token, {dispatch, rejectWithValue})=>{
     try {
         const directories=await getAllDirectory(token)
         return directories.directories.reverse();
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
+        
     }
 })
 
-export const createDirectory=createAsyncThunk('todos/postDirectory', async(obj)=>{
+export const createDirectory=createAsyncThunk('todos/postDirectory', async(obj, {dispatch, rejectWithValue})=>{
     const {token , data}=obj;
     try {
         const newDirectory=await postDirectory(data , token);
         return newDirectory.directory
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
 
-export const editDirectory=createAsyncThunk('todos/updateDirectory', async (obj)=>{
+export const editDirectory=createAsyncThunk('todos/updateDirectory', async (obj, {dispatch, rejectWithValue})=>{
     const {token , id, data}=obj
     try {
         const updatedDir=await updateDirectory(id, data, token);
         return updatedDir.directory
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
 
-export const removeDirectory=createAsyncThunk('todos/deleteDirectory', async(obj)=>{
+export const removeDirectory=createAsyncThunk('todos/deleteDirectory', async(obj, {dispatch, rejectWithValue})=>{
     const {id, token}=obj
     try {
         await deleteDirectory(id, token);
         return id
     } catch (error) {
         console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
+        throw new Error(error)
+    }
+})
+
+export const removeAllData=createAsyncThunk('todos/deleteData', async (token, {dispatch, rejectWithValue})=>{
+    try {
+        await deleteAllData(token);
+        return;
+    } catch (error) {
+        console.log(error);
+        if(error.message==='Error: TokenExpiredError'){
+            dispatch(setToken(null));
+            localStorage.removeItem("token");
+        }
+        rejectWithValue("invalid token");
         throw new Error(error)
     }
 })
@@ -119,13 +177,6 @@ const todosSlice=createSlice({
         addsearchTasks:(state, action)=>{
             state.searchTasks=action.payload
         }, 
-        deleteAllData:(state)=>{
-            state.directories=initialState.directories
-            state.isList=initialState.isList
-            state.searchTasks=initialState.searchTasks
-            state.sortBy=initialState.sortBy
-            state.todos=initialState.todos
-        },
         deleteIsAdded:(state)=>{
             state.isAdded=false
         }
@@ -256,8 +307,25 @@ const todosSlice=createSlice({
             state.error=true;
             state.loading=false;
         })
+        .addCase(removeAllData.pending, (state)=>{
+            state.loading=true;
+            state.error=false;
+        })
+        .addCase(removeAllData.fulfilled, (state)=>{
+            state.loading=false;
+            state.error=false;
+            state.directories=state.directories.filter((dir)=>dir.name==='Main');
+            state.isList=initialState.isList;
+            state.searchTasks=initialState.searchTasks;
+            state.sortBy=initialState.sortBy;
+            state.todos=initialState.todos;
+        })
+        .addCase(removeAllData.rejected, (state)=>{
+            state.loading=false;
+            state.error=true;
+        })
     }
 })
-export const {listStyle, cardStyle, addSortBy, addsearchTasks, deleteAllData, deleteIsAdded}=todosSlice.actions
+export const {listStyle, cardStyle, addSortBy, addsearchTasks, deleteIsAdded}=todosSlice.actions
 
 export default todosSlice.reducer

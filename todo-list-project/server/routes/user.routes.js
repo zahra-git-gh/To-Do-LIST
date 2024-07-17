@@ -5,7 +5,8 @@ const {
     registerNewUser,
     verifyUser,
     loginUser,
-    updateUser
+    updateUser,
+    deleteAllDataOfOneUser
 }=require('../controllers/user.controllers');
 const { verifyToken } = require('../middlewares/authMiddlware');
 /**
@@ -51,6 +52,15 @@ router.post('/login', loginUser)
  */
 
 router.patch('/', verifyToken ,updateUser)
+
+/**
+ * @URL : /user
+ * @Method : DELETE
+ * @Status : PUBLIC
+ * @Description : delete all data todos and directories of one user
+ */
+
+router.delete('/', verifyToken ,deleteAllDataOfOneUser)
 
 
 module.exports={router}

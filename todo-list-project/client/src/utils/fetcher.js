@@ -10,7 +10,7 @@ export const getData=async (url, token)=>{
         return response.data
     } catch (error) {
         console.log(error);
-        throw new Error(error.response.data.error || error.response.data.msg)
+        throw new Error(error.response.data.error.name|| error.response.data.msg)
     }
 };
 
@@ -25,7 +25,7 @@ export const postData=async (url, data, token=null)=>{
         return response.data
     } catch (error) {
         console.log(error.response.data);
-        throw new Error(error.response.data.message)
+        throw new Error(error.response.data.message||error.response.data.error.name)
     }
 };
 export const updateData=async (url, data, token)=>{

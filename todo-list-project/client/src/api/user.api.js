@@ -1,4 +1,5 @@
 import {
+    deleteData,
  getData,
  postData,
  updateData
@@ -36,6 +37,15 @@ export const getUser=async (token)=>{
     try {
         const user=await getData(`${BASE_URL}/user`, token)
         return user;
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+export const deleteAllData=async (token)=>{
+    try {
+        await deleteData(`${BASE_URL}/user`, token);
+        return ;
     } catch (error) {
         throw new Error(error)
     }
