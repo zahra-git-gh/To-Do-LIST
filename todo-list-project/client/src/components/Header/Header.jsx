@@ -9,6 +9,7 @@ import { todayTodos } from "../../utils/todayTodos";
 export function Header() {
   const { openModal: secondModal } = useModal();
   const todos = useSelector((state) => state.todo.todos);
+  const user = useSelector((state) => state.user.userData);
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
@@ -58,7 +59,7 @@ export function Header() {
         </div>
         <div
           onClick={() => secondModal(2)}
-          className="cursor-pointer xl:hidden w-10 h-10 rounded-full bg-[url('./avatar-1.jpg')] bg-center bg-cover"
+          className={`cursor-pointer xl:hidden w-10 h-10 rounded-full bg-[url('${user.profile}')] bg-center bg-cover`}
         ></div>
       </div>
     </header>

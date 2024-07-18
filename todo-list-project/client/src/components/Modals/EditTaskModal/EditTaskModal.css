@@ -1,4 +1,4 @@
 .close{
-    -webkit-mask: url(./x.svg) no-repeat center;
-    mask: url(./x.svg) no-repeat center;
+    -webkit-mask: url(/x.svg) no-repeat center;
+    mask: url(/x.svg) no-repeat center;
 }

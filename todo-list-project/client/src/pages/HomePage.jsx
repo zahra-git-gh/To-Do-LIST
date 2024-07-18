@@ -1,5 +1,6 @@
+import { Outlet } from "react-router-dom";
 import { NewTaskBtn } from "../components/Add-new-task-button/NewTaskBtn";
-import { AllTasks } from "../components/AllTasks/AllTasks";
+// import { AllTasks } from "../components/AllTasks/AllTasks";
 import { Header } from "../components/Header/Header";
 import { CreateDirectoryModal } from "../components/Modals/CreateDirectoryModal/CreateDirectoryModal";
 import { CreateTaskModal } from "../components/Modals/CreateTaskModal/CreateTaskModal";
@@ -10,6 +11,7 @@ import { EditDirectoryModal } from "../components/Modals/EditDirectoryModal/Edit
 import { EditTaskModal } from "../components/Modals/EditTaskModal/EditTaskModal";
 import { Nav } from "../components/Nav/Nav";
 import { UserProfile } from "../components/UserProfile/UserProfile";
+import { EditUserModal } from "../components/Modals/EditUserModal/EditUserModal";
 // import { useModal } from "../hooks/ModalContext";
 
 export function HomePage() {
@@ -26,11 +28,12 @@ export function HomePage() {
       <CreateDirectoryModal modalIDD={6} />
       <EditDirectoryModal modalIDD={7} />
       <DeleteDirectoryModal modalIDD={8} />
-      <DeleteAllData modalIDD={9} />
+      <DeleteAllData modalIDD={10} />
+      <EditUserModal modalIDD={11} />
       <div className="xl:w-8/12 xl:m-auto xl:pr-4 flex flex-col justify-between h-full">
         <Header />
 
-        <AllTasks />
+        <Outlet />
         <div className="w-28 fixed right-3 bottom-5 shadow-lg shadow-slate-400 sm:hidden ">
           <NewTaskBtn />
         </div>

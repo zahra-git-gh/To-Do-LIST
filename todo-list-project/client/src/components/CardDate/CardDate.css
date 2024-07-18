@@ -1,4 +1,4 @@
 .dateIcon{
-  -webkit-mask: url(./date.svg) no-repeat center;
-  mask: url(./date.svg) no-repeat center;
+  -webkit-mask: url(/date.svg) no-repeat center;
+  mask: url(/date.svg) no-repeat center;
 }

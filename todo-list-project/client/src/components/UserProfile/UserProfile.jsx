@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useModal } from "../../hooks/ModalContext";
 import { BarProgress } from "../BarProgress/BarProgress";
 import { Darkmode } from "../Darkmode/Darkmode";
 import { useSelector } from "react-redux";
-import { getUser } from "../../api/user.api";
 import "./UserProfile.css";
 export function UserProfile({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, openModal } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
 
   // let userName = "User";
-  const [userName, setUserName] = useState("User");
-  const token = useSelector((state) => state.user.token);
+  const userData = useSelector((state) => state.user.userData);
+
+  console.log(userData);
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
@@ -27,15 +27,9 @@ export function UserProfile({ modalIDD }) {
     });
     return completed;
   }
-  //get user name data
-  useEffect(() => {
-    getUser(token).then((response) => {
-      setUserName(response[0].name);
-    });
-  }, [token]);
   //open modal delete all data
   function deleteAllDataHandler() {
-    openModal(9);
+    openModal(10);
   }
   const today = new Date();
   const year = today.getFullYear();
@@ -70,9 +64,14 @@ export function UserProfile({ modalIDD }) {
           <section className="w-full h-full p-5 flex flex-col">
             <div className="flex items-center justify-center">
               <p className="dark:text-slate-400 text-sm sm:text-xs xl:text-base">
-                {` Hi, ${userName}!`}
+                {` Hi, ${userData.name}!`}
               </p>
-              <div className="profile w-10 h-10 rounded-full bg-[url('./avatar-1.jpg')] bg-center bg-cover ml-4"></div>
+              <div
+                onClick={() => {
+                  openModal(11);
+                }}
+                className={`profile cursor-pointer w-10 h-10 rounded-full bg-[url('${userData.profile}')] bg-center bg-cover ml-4`}
+              ></div>
             </div>
             <Darkmode />
             {todayTodos(today1).todayTodosArr.length > 0 && (

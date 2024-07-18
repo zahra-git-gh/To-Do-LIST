@@ -21,9 +21,13 @@ export function UncompletedTaskToday({ data, modalIDD }) {
                   return (
                     <li
                       key={i}
-                      className="py-2 sm:text-sm text-xs xl:text-base hover:text-red-500 text-slate-400 cursor-pointer dark:hover:text-slate-200"
+                      className="py-2 sm:text-sm text-xs xl:text-base hover:text-red-500 text-slate-400  dark:hover:text-slate-200"
                     >
-                      <Link state={todo} to={`/task/${todo._id}`}>
+                      <Link
+                        className="cursor-pointer"
+                        state={todo}
+                        to={`/task/${todo._id}`}
+                      >
                         {todo.title}
                       </Link>
                     </li>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
+import "./SignUpForm.css";
 export function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +71,7 @@ export function SignUpForm() {
         isHide={isHide}
       />
       <div className="w-full h-full flex justify-center py-4 items-center">
-        <section className="w-11/12 mt-8 max-w-lg bg-slate-50 p-3 rounded-lg dark:bg-slate-900 ">
+        <section className="w-11/12 mt-8 max-w-lg bg-slate-50 p-3 rounded-lg dark:bg-slate-800 ">
           <div className="flex w-full justify-between items-center">
             <h1 className="text-lg font-semibold text-slate-500 dark:text-slate-200 lg:text-2xl">
               SignUp
@@ -85,7 +86,7 @@ export function SignUpForm() {
                 Name
               </label>
               <input
-                className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
+                className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
                 type="text"
                 id="name"
                 {...register("name", { required: true })}
@@ -104,7 +105,7 @@ export function SignUpForm() {
                 Email
               </label>
               <input
-                className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
+                className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
                 type="email"
                 id="email"
                 {...register("email", {
@@ -127,7 +128,7 @@ export function SignUpForm() {
                 Password
               </label>
               <input
-                className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
+                className="bg-slate-100 dark:bg-slate-600 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
                 type="password"
                 id="password"
                 {...register("password", {

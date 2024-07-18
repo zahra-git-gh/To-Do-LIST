@@ -6,7 +6,7 @@ import { useState } from "react";
 import { setToken } from "../../redux/user.slice";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
-
+// import './LoginForm.css';
 export function LoginForm() {
   const dispatch = useDispatch();
   //react hook form for handle our form create task
@@ -67,7 +67,7 @@ export function LoginForm() {
           isHide={isHide}
           alertMessage={alertMessage}
         />
-        <div className="w-full h-44 lg:h-screen max-w-sm  md:w-1/2 md:max-w-none bg-[url('./login-background.png')] bg-center bg-cover"></div>
+        <div className="w-full h-44 lg:h-screen max-w-sm  md:w-1/2 md:max-w-none bg-[url('/login-background.png')] bg-center bg-cover"></div>
         <section className="w-11/12 relative  max-w-lg bg-slate-50 p-3  rounded-lg dark:bg-slate-800 ">
           <div className="w-1/2 bg-blue-800 py-3 px-2 rounded-l-lg absolute right-0">
             <h1 className="font-bold text-white text-sm sm:text-lg md:text-xl italic">

@@ -1,4 +1,4 @@
 .menu{
-    -webkit-mask: url(./menu.svg) no-repeat center;
-    mask: url(./menu.svg) no-repeat center;
+    -webkit-mask: url(/menu.svg) no-repeat center;
+    mask: url(/menu.svg) no-repeat center;
 }

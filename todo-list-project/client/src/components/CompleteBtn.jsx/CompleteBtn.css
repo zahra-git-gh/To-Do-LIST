@@ -1,10 +1,10 @@
 .completed-sm{
     background-color: #060a19;
-    -webkit-mask: url(./check.svg) no-repeat center;
-    mask: url(./check.svg) no-repeat center;
+    -webkit-mask: url(/check.svg) no-repeat center;
+    mask: url(/check.svg) no-repeat center;
 }
 .unCompleted-sm{
     background-color: #994426;
-    -webkit-mask: url(./x.svg) no-repeat center;
-    mask: url(./x.svg) no-repeat center;
+    -webkit-mask: url(/x.svg) no-repeat center;
+    mask: url(/x.svg) no-repeat center;
 }
