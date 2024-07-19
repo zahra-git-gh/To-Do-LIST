@@ -25,13 +25,37 @@ export function AllTasks({ data, title }) {
   const isAdded = useSelector((state) => state.todo.isAdded);
   const isError = useSelector((state) => state.todo.error);
   const { state: todo, pathname } = useLocation();
-
   const directories = useSelector((state) => state.todo.directories);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const searchValue = searchParams.get("q");
   const dispatch = useDispatch();
   const { dirId } = useParams();
+
+  if (dirId) {
+    newData = [...data].filter((todo) => todo.directory === dirId);
+    console.log(newData);
+    const nameDir = directories?.filter((dir) => dir._id === dirId)[0];
+    if (!nameDir) {
+      navigate("/404");
+    }
+    newTitle = `${nameDir?.name}'s tasks`;
+  }
+  if (pathname.includes("result")) {
+    const filterTodos = data.filter((todo) => todo.title.includes(searchValue));
+    newData = [...filterTodos];
+    newTitle = `${searchValue}'s results`;
+    if (newData.length < 1 || !newTitle) {
+      navigate("/404");
+    }
+  }
+  useEffect(() => {
+    if (pathname.includes("task") && !todo) {
+      console.log("can you see me?");
+      navigate("/404");
+    }
+    return;
+  }, [todo, pathname, navigate]);
   useEffect(() => {
     async function start() {
       await dispatch(fetchTodos(token));
@@ -51,35 +75,7 @@ export function AllTasks({ data, title }) {
     }, 4000);
     return () => clearTimeout(stop);
   }, [dispatch, isAdded]);
-
-  if (dirId) {
-    newData = [...data].filter((todo) => todo.directory === dirId);
-    console.log(newData);
-    newTitle = `${
-      directories?.filter((dir) => dir._id === dirId)[0]?.name
-    }'s tasks`;
-    console.log(newData);
-    console.log(newTitle);
-    if (newData.length < 1 || !newTitle) {
-      navigate("/404");
-    }
-  }
-  if (pathname.includes("result")) {
-    const filterTodos = data.filter((todo) => todo.title.includes(searchValue));
-    newData = [...filterTodos];
-    newTitle = `${searchValue}'s results`;
-    if (newData.length < 1 || !newTitle) {
-      navigate("/404");
-    }
-  }
   //show notfound page when we dont have todo
-  useEffect(() => {
-    if (pathname.includes("task") && !todo) {
-      console.log("can you see me?");
-      navigate("/404");
-    }
-    return;
-  }, [todo, pathname, navigate]);
 
   // if (!title) {
   //   navigate("/notfound");

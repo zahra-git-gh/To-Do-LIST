@@ -8,7 +8,6 @@ import { fetchDirectory } from "../../redux/todos.slice.js";
 import { NavLink } from "react-router-dom";
 export function Nav({ modalIDD }) {
   const isDark = document.documentElement.className;
-  console.log(isDark);
   const directories = useSelector((state) => state.todo.directories);
   const { isModalOpen, closeModal, modalID, openModal } = useModal();
   const [isShow, setIsShow] = useState(false);
@@ -23,7 +22,7 @@ export function Nav({ modalIDD }) {
       dispatch(fetchDirectory(token));
     };
     start();
-  }, []);
+  }, [dispatch, token]);
 
   if (modalIDD !== modalID && width < 1280) {
     return null;
@@ -195,7 +194,7 @@ export function Nav({ modalIDD }) {
               })}
               <button
                 onClick={() => openModal(6)}
-                className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600"
+                className="text-xs sm:text-sm xl:text-base text-slate-500 pl-2 ml-2 cursor-pointer mt-4 border-2 border-dashed border-slate-300 rounded-md py-1 px-3 hover:text-blue-700 dark:border-slate-600 mb-8"
               >
                 + New
               </button>

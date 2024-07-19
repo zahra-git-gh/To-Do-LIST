@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import './ProfileImage.css';
 export function ProfileImages({ isShow, setIsShow, userProfile, sendProfile }) {
   console.log(isShow);
   const [isShow2, setIsShow2] = useState(isShow);
@@ -31,18 +31,19 @@ export function ProfileImages({ isShow, setIsShow, userProfile, sendProfile }) {
     <div className={`${!isShow2 && "hidden"} w-2/6 relative`}>
       <div
         className={
-          "w-full  h-60 bg-blue-900 absolute rounded-lg  overflow-auto grid grid-cols-1 justify-center px-2 py-1 min-[400px]:grid-cols-2 gap-x-2"
+          "w-full parent-images  h-60 bg-blue-900 absolute rounded-lg  overflow-auto grid grid-cols-1 justify-center px-2 py-1 min-[400px]:grid-cols-2 gap-x-2"
         }
       >
         {profileLinks.map((link, i) => {
           return (
             <div
+              style={{ backgroundImage: `url("${link}")` }}
               onClick={() => {
                 setProfile(link);
                 setIsShow2(false);
               }}
               key={i}
-              className={`w-full h-12 mt-1 bg-yellow-400 rounded-lg bg-[url('${link}')] bg-center bg-cover cursor-pointer`}
+              className={`w-full h-12 mt-1 bg-yellow-400 rounded-lg bg-center bg-cover cursor-pointer`}
             ></div>
           );
         })}

@@ -71,7 +71,7 @@ export function EditTaskModal({ modalIDD }) {
               ></button>
             </div>
             <form onSubmit={handleSubmitEdit}>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="title"
@@ -89,7 +89,7 @@ export function EditTaskModal({ modalIDD }) {
                   value={data?.title}
                 />
               </div>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="date"
@@ -108,7 +108,7 @@ export function EditTaskModal({ modalIDD }) {
                 />
               </div>
 
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="description"
@@ -124,7 +124,7 @@ export function EditTaskModal({ modalIDD }) {
                   value={data && data.description}
                 />
               </div>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="directory"

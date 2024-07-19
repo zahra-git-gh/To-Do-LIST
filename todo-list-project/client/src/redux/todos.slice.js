@@ -190,7 +190,7 @@ const todosSlice=createSlice({
         .addCase(fetchTodos.fulfilled, (state, action)=>{
             state.error=false;
             state.loading=false;
-            state.todos.push(...action.payload)
+            state.todos=[...action.payload]
         })
         .addCase(fetchTodos.rejected, (state)=>{
             state.error=true;
@@ -249,7 +249,7 @@ const todosSlice=createSlice({
         .addCase(fetchDirectory.fulfilled, (state, action)=>{
             state.error=false;
             state.loading=false;
-            state.directories.push(...action.payload);
+            state.directories=[...action.payload];
         })
         .addCase(fetchDirectory.rejected, (state)=>{
             state.error=true;

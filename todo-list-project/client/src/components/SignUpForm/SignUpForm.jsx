@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AlertSignUp } from "../AlertSignUp/AlertSignUp";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
-import "./SignUpForm.css";
+// import "./SignUpForm.css";
 export function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

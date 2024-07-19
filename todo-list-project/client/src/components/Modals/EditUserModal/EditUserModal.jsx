@@ -30,6 +30,7 @@ export function EditUserModal({ modalIDD }) {
   function logoutHandler() {
     localStorage.removeItem(token);
     dispatch(setToken(null));
+    closeModal();
   }
   if (modalID !== modalIDD) {
     return null;
@@ -48,6 +49,7 @@ export function EditUserModal({ modalIDD }) {
             <button
               onClick={() => {
                 setIsShow(false);
+                setUserData(user);
                 closeModal();
               }}
               className="close w-6 h-6 bg-slate-600 dark:bg-slate-200"
@@ -59,7 +61,8 @@ export function EditUserModal({ modalIDD }) {
                 onClick={() => {
                   setIsShow(!isShow);
                 }}
-                className={`profile cursor-pointer w-20 h-20 rounded-full bg-[url('${userData.profile}')] bg-center bg-cover `}
+                style={{ backgroundImage: `url("${userData.profile}")` }}
+                className={`profile cursor-pointer w-20 h-20 rounded-full bg-center bg-cover `}
               ></div>
               <p className="dark:text-slate-400 text-base sm:text-lg xl:text-xl font-semibold text-blue-900">
                 {` Hi, ${userData?.name}!`}

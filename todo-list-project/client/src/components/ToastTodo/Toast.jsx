@@ -13,7 +13,7 @@ export function Toast({ isHidden }) {
         role="alert"
       >
         <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 rounded-lg ">
-          <div className="bg-[url('checklist_1.png')] w-8 h-8 bg-center bg-cover"></div>
+          <div className="bg-[url('/checklist_1.png')] w-8 h-8 bg-center bg-cover"></div>
           <span className="sr-only">Check icon</span>
         </div>
         <div className="ms-3 text-sm font-normal">

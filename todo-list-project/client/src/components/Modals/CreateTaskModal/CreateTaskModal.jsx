@@ -109,7 +109,7 @@ export function CreateTaskModal({ modalIDD }) {
               ></button>
             </div>
             <form onSubmit={handleSubmit(submitCreateTaskForm)}>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="title"
@@ -129,7 +129,7 @@ export function CreateTaskModal({ modalIDD }) {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="date"
@@ -137,7 +137,7 @@ export function CreateTaskModal({ modalIDD }) {
                   Date
                 </label>
                 <input
-                  className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base"
+                  className="bg-slate-100 dark:bg-slate-800 dark:text-slate-200 h-12 rounded-lg focus:border-2 focus:border-blue-600 hover:border-2 hover:border-blue-600 focus:outline-none px-2 py-3 text-xs sm:text-sm xl:text-base "
                   type="date"
                   id="date"
                   {...register("deadline", {
@@ -152,7 +152,7 @@ export function CreateTaskModal({ modalIDD }) {
                 )}
               </div>
 
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="description"
@@ -171,7 +171,7 @@ export function CreateTaskModal({ modalIDD }) {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col gap-y-2 mt-5">
+              <div className="flex flex-col gap-y-2 mt-5 xl:mt-2">
                 <label
                   className="text-xs sm:text-sm text-slate-500 xl:text-base"
                   htmlFor="directory"

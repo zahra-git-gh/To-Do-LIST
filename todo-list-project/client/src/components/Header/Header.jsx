@@ -58,8 +58,9 @@ export function Header() {
           <NewTaskBtn />
         </div>
         <div
+          style={{ backgroundImage: `url("${user.profile}")` }}
           onClick={() => secondModal(2)}
-          className={`cursor-pointer xl:hidden w-10 h-10 rounded-full bg-[url('${user.profile}')] bg-center bg-cover`}
+          className={`cursor-pointer xl:hidden w-10 h-10 rounded-full bg-center bg-cover`}
         ></div>
       </div>
     </header>

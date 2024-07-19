@@ -7,11 +7,7 @@ import "./UserProfile.css";
 export function UserProfile({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, openModal } = useModal();
   const [width, setWidth] = useState(window.innerWidth);
-
-  // let userName = "User";
   const userData = useSelector((state) => state.user.userData);
-
-  console.log(userData);
   window.addEventListener("resize", () => {
     setWidth(window.innerWidth);
   });
@@ -70,7 +66,8 @@ export function UserProfile({ modalIDD }) {
                 onClick={() => {
                   openModal(11);
                 }}
-                className={`profile cursor-pointer w-10 h-10 rounded-full bg-[url('${userData.profile}')] bg-center bg-cover ml-4`}
+                style={{ backgroundImage: `url("${userData.profile}")` }}
+                className={`profile cursor-pointer w-10 h-10 rounded-full bg-center bg-cover ml-4`}
               ></div>
             </div>
             <Darkmode />

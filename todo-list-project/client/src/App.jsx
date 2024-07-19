@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
+
 import { ModalProvider } from "./hooks/ModalContext";
 import { HomePage } from "./pages/HomePage";
 import { useSelector } from "react-redux";
@@ -12,10 +12,6 @@ import { AllTasks } from "./components/AllTasks/AllTasks";
 function App() {
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
-  //filter cards with value search input all
-  // const [todosRoute, setTodosRoute]=useState(todos)
-  // let todosRoute = [];
-  // const { dirId } = useParams();
   //get todos for today
   const today = new Date();
   const year = today.getFullYear();
@@ -32,23 +28,6 @@ function App() {
     (todo) => todo.isCompleted === false
   );
   const todayTasks = [...todayTodos(today1, todos).todayTodosArr];
-  //! if (pathname === "/") {
-  //   todosRoute = [...todos];
-  //   todoLength(todosRoute.length);
-  // } else if (pathname.includes("/task")) {
-  //   todosRoute = [todo];
-  //   todoLength(todosRoute.length);
-  // } else if (pathname.includes("/directory")) {
-  //   todosRoute = [...todos].filter((todo) => todo.directory === dirId);
-  //   todoLength(todosRoute.length);
-  // } else if (pathname.includes("result")) {
-  //   todosRoute = [...filterTodos];
-  //   todoLength(todosRoute.length);
-  // } else {
-  //   //not found
-  //   //navigate to not found page
-  //! }
-
   //!verify if token does not exist
   const token = useSelector((state) => state.user.token);
   const html = document.getElementsByTagName("html")[0];
@@ -95,6 +74,7 @@ function App() {
           <Routes>
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/404" element={<NotFoundPage />} />
             <Route
               path="/"
               element={token ? <HomePage /> : <Navigate to={"/login"} />}
@@ -114,7 +94,6 @@ function App() {
               })}
             </Route>
             <Route path="*" element={<Navigate to={"/404"} />} />
-            <Route path="/404" element={<NotFoundPage />} />
           </Routes>
         </ModalProvider>
       </BrowserRouter>

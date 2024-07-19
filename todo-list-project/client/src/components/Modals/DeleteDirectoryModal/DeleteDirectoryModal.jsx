@@ -3,13 +3,16 @@ import { useModal } from "../../../hooks/ModalContext";
 import "../EditTaskModal/EditTaskModal.css";
 import { removeDirectory } from "../../../redux/todos.slice";
 import { LoadingSpinner } from "../../LoadingSpinner/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 export function DeleteDirectoryModal({ modalIDD }) {
   const { isModalOpen, closeModal, modalID, id } = useModal();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector((state) => state.user.token);
   const isLoading = useSelector((state) => state.todo.loading);
   function handleDeleteDir() {
     dispatch(removeDirectory({ id, token }));
+    navigate("/");
     closeModal();
   }
   if (modalID !== modalIDD) {
