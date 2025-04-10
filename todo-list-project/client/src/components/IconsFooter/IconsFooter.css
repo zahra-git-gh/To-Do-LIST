@@ -1,0 +1,9 @@
+.trash{
+    -webkit-mask: url(./trash.svg) no-repeat center;
+    mask: url(./trash.svg) no-repeat center;
+
+}
+.details{
+    -webkit-mask: url(./options.svg) no-repeat center;
+    mask: url(./options.svg) no-repeat center;
+}

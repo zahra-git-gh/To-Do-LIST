@@ -1,0 +1,8 @@
+.list {
+  -webkit-mask: url(/view-1.svg) no-repeat center;
+  mask: url(/view-1.svg) no-repeat center;
+}
+.card {
+  -webkit-mask: url(/view-2.svg) no-repeat center;
+  mask: url(/view-2.svg) no-repeat center;
+}

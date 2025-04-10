@@ -1,0 +1,4 @@
+.searchIcon{
+  -webkit-mask: url(/search.svg) no-repeat center;
+  mask: url(/search.svg) no-repeat center;
+}

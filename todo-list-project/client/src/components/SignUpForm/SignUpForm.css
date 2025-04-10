@@ -1,0 +1,7 @@
+/* html:has(.dark) input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgb(71 85 105) inset !important;
+    -webkit-text-fill-color: rgb(226 232 240);
+} */

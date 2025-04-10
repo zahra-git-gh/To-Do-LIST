@@ -1,0 +1,8 @@
+.star {
+  -webkit-mask: url(/star-line.svg) no-repeat center;
+  mask: url(/star-line.svg) no-repeat center;
+}
+.star-solid {
+  -webkit-mask: url(/star-regular.svg) no-repeat center;
+  mask: url(/star-regular.svg) no-repeat center;
+}

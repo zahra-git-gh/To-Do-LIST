@@ -1,0 +1,27 @@
+.arrow{
+    -webkit-mask: url(/public/arrow.svg) no-repeat center;
+    mask: url(/public/arrow.svg) no-repeat center;
+}
+.edit-category{
+    -webkit-mask: url(/public/edit.svg) no-repeat center;
+    mask: url(/public/edit.svg) no-repeat center;
+}
+.delete-category{
+    -webkit-mask: url(/public/trash.svg) no-repeat center;
+    mask: url(/public/trash.svg) no-repeat center;
+}
+
+.directories::-webkit-scrollbar{
+    width: 6px;
+	background-color: #F5F5F5;
+}
+.directories::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+.directories::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #333d91;
+}
