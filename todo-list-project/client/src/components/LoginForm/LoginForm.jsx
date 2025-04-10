@@ -49,7 +49,6 @@ export function LoginForm() {
         navigate("/");
       }, 2500);
     } catch (error) {
-      console.log(error.message);
       setAlertMessage(error.message);
       setIsSuccess(false);
     } finally {

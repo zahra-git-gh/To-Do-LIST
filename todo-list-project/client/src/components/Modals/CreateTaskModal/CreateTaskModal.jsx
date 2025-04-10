@@ -63,11 +63,8 @@ export function CreateTaskModal({ modalIDD }) {
       isImportant,
     };
     try {
-      console.log(task);
       await dispatch(await createTodo({ token, data: task }));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     reset();
     closeModal();
     setIsCompleted(false);

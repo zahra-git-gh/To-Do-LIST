@@ -1,6 +1,5 @@
 export function BarProgress({ allTasks, completedTasks, title }) {
   const width = (100 / allTasks) * completedTasks;
-  console.log(width);
   return (
     <section className="mt-6">
       <div className="flex justify-between mb-2">

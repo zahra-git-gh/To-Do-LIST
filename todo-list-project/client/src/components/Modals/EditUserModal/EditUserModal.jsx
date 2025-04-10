@@ -10,7 +10,6 @@ export function EditUserModal({ modalIDD }) {
   const isLoading = useSelector((state) => state.user.loading);
   const [isShow, setIsShow] = useState(false);
   const user = useSelector((state) => state.user.userData);
-  console.log(user);
   const [userData, setUserData] = useState(user);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.user.token);
@@ -20,7 +19,6 @@ export function EditUserModal({ modalIDD }) {
   async function submitEdit(e) {
     e.preventDefault();
     try {
-      console.log(userData);
       await dispatch(editUser({ token, data: userData }));
       closeModal();
     } catch (error) {
@@ -73,12 +71,10 @@ export function EditUserModal({ modalIDD }) {
               userProfile={userData.profile}
               isShow={isShow}
               setIsShow={(isShow) => {
-                console.log(isShow);
                 setIsShow(isShow);
               }}
               sendProfile={(newProfile) => {
                 setUserData({ ...userData, profile: newProfile });
-                console.log(userData);
               }}
             />
           </div>

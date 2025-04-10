@@ -5,7 +5,6 @@ import { useState } from "react";
 export function DirectoryNav({ dir }) {
   const { openModal, setDataID } = useModal();
   const isDark = document.documentElement.className;
-  console.log(dir);
   const [isActive, setIsActive] = useState(false);
   return (
     <div

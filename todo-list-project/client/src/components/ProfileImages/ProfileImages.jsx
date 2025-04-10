@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
-import './ProfileImage.css';
+import "./ProfileImage.css";
 export function ProfileImages({ isShow, setIsShow, userProfile, sendProfile }) {
-  console.log(isShow);
   const [isShow2, setIsShow2] = useState(isShow);
   const [profile, setProfile] = useState(userProfile);
-  console.log(isShow2);
   useEffect(() => {
     setIsShow2(isShow);
   }, [isShow]);
+
   useEffect(() => {
     setIsShow(isShow2);
   }, [isShow2]);
+
   useEffect(() => {
     setProfile(userProfile);
   }, [userProfile]);
+
   useEffect(() => {
     sendProfile(profile);
   }, [profile]);
+
   const profileLinks = [
     "/profile-1.jpg",
     "/profile-2.jpg",

@@ -10,6 +10,8 @@ import { todayTodos } from "./utils/todayTodos";
 import { AllTasks } from "./components/AllTasks/AllTasks";
 
 function App() {
+  //!verify if token does not exist
+  const token = useSelector((state) => state.user.token);
   //get all data of todos and render cards
   const todos = useSelector((state) => state.todo.todos);
   //get todos for today
@@ -28,8 +30,7 @@ function App() {
     (todo) => todo.isCompleted === false
   );
   const todayTasks = [...todayTodos(today1, todos).todayTodosArr];
-  //!verify if token does not exist
-  const token = useSelector((state) => state.user.token);
+
   const html = document.getElementsByTagName("html")[0];
   if (localStorage.getItem("theme") === "dark") {
     html.setAttribute("class", "dark");

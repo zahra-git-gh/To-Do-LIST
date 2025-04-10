@@ -1,8 +1,7 @@
 import { useModal } from "../../hooks/ModalContext";
 import "./Menu.css";
 export function Menu() {
-  // console.log(useModal().openModal);
-  const { openModal: firstModal} = useModal();
+  const { openModal: firstModal } = useModal();
   return (
     <div
       onClick={() => firstModal(1)}

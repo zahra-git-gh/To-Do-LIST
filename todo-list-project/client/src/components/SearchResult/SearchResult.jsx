@@ -66,7 +66,6 @@ export function SearchResult() {
       {filterTodos.length > 0 && (
         <button
           onClick={() => {
-            console.log(searchValue);
             navigate({ pathname: "/result", search: `q=${searchValue}` });
           }}
           className="btn bg-red-100 text-red-500 w-full  py-3 rounded-lg hover:bg-red-200 text-xs sm:text-sm xl:text-base dark:bg-slate-700 dark:text-slate-100 mt-2"

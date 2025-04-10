@@ -5,7 +5,6 @@ export function AlertSignUp({ isSuccess, alertMessage, isHide }) {
   useEffect(() => {
     setIsClose(false);
   }, [isHide]);
-  console.log(isClose);
   return (
     <div
       id="alert-border-1"

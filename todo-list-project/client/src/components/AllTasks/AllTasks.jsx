@@ -34,7 +34,6 @@ export function AllTasks({ data, title }) {
 
   if (dirId) {
     newData = [...data].filter((todo) => todo.directory === dirId);
-    console.log(newData);
     const nameDir = directories?.filter((dir) => dir._id === dirId)[0];
     if (!nameDir) {
       navigate("/404");
@@ -51,7 +50,6 @@ export function AllTasks({ data, title }) {
   }
   useEffect(() => {
     if (pathname.includes("task") && !todo) {
-      console.log("can you see me?");
       navigate("/404");
     }
     return;
