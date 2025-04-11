@@ -11,8 +11,7 @@ export function SignUpForm() {
   const [alertMessage, setAlertMessage] = useState();
   const [isHide, setIsHide] = useState(true);
   const navigate = useNavigate();
-  const registerMessage =
-    "Your account has been created. Please check your email.";
+  const registerMessage = "Your account has been created. Please Login.";
   //react hook form for handle our form create task
   const {
     handleSubmit,

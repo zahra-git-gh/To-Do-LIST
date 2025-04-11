@@ -9,6 +9,7 @@ const verifyToken = (req, res, next) => {
     }
     const secret_key = process.env.SECRET_KEY;
     const decode_token = jwt.verify(token, secret_key);
+    console.log("token in middleware", decode_token);
     if (req.method === "POST" && req.originalUrl == "/directory") {
       req.body.userId = decode_token.userId;
     } else if (req.method === "POST" && req.originalUrl == "/todo") {
@@ -18,6 +19,7 @@ const verifyToken = (req, res, next) => {
     }
     next();
   } catch (error) {
+    console.log("error in catch", error);
     if (error.name === "TokenExpiredError") {
       return res.status(401).json({ error: "TokenExpiredError" });
     }
