@@ -122,7 +122,7 @@ export function UserProfile({ modalIDD }) {
             </div>
             <div>
               <button className="btn bg-red-100 text-red-500 w-full px-4 py-3 rounded-lg hover:bg-red-200 text-xs sm:text-sm xl:text-base dark:bg-slate-700 dark:text-slate-100">
-                Created by APSignals
+                Created by Zahra Ghanbari
               </button>
             </div>
           </section>

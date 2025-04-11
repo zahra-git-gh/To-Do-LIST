@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const getData = async (url, token) => {
   const response = await fetch(url, {
     method: "GET",
@@ -11,7 +9,12 @@ export const getData = async (url, token) => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    if (errorData?.error === "TokenExpiredError") {
+    console.log(errorData);
+    if (
+      errorData?.error === "TokenExpiredError" ||
+      errorData?.error === "Access denied" ||
+      errorData?.error === "Invalid token"
+    ) {
       localStorage.removeItem("token");
       window.location.reload();
       return;
@@ -40,7 +43,11 @@ export const postData = async (url, data, token = null) => {
     if (!response.ok) {
       const errorData = await response.json();
 
-      if (errorData?.error === "TokenExpiredError") {
+      if (
+        errorData?.error === "TokenExpiredError" ||
+        errorData?.error === "Access denied" ||
+        errorData?.error === "Invalid token"
+      ) {
         localStorage.removeItem("token");
         window.location.reload();
         return;
@@ -72,7 +79,11 @@ export const updateData = async (url, data, token) => {
   if (!response.ok) {
     const errorData = await response.json();
 
-    if (errorData?.error === "TokenExpiredError") {
+    if (
+      errorData?.error === "TokenExpiredError" ||
+      errorData?.error === "Access denied" ||
+      errorData?.error === "Invalid token"
+    ) {
       localStorage.removeItem("token");
       window.location.reload();
       return;
@@ -100,7 +111,11 @@ export const deleteData = async (url, token) => {
   if (!response.ok) {
     const errorData = await response.json();
 
-    if (errorData?.error === "TokenExpiredError") {
+    if (
+      errorData?.error === "TokenExpiredError" ||
+      errorData?.error === "Access denied" ||
+      errorData?.error === "Invalid token"
+    ) {
       localStorage.removeItem("token");
       window.location.reload();
       return;
